@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+
+<body>
+<h1>re2 RegEX cheatsheet</h1>
+
+<p>This cheatsheet covers the basics of the regular expression syntax.</p>
+
+<table>
+<tr><th></th><th>Repetitions</th></tr>
+<tr><td><code>x*</code></td><td>zero or more <code>x</code>, prefer more</td></tr>
+<tr><td><code>x+</code></td><td>one or more <code>x</code>, prefer more</td></tr>
+<tr><td><code>x?</code></td><td>zero or one <code>x</code>, prefer one</td></tr>
+<tr><td><code>x{n,m}</code></td><td><code>n</code> or <code>n</code>+1 or ... or <code>m</code> <code>x</code>, prefer more</td></tr>
+<tr><td><code>x{n,}</code></td><td><code>n</code> or more <code>x</code>, prefer more</td></tr>
+<tr><td><code>x{n}</code></td><td>exactly <code>n</code> <code>x</code></td></tr>
+<tr><td><code>x{n,m}?</code></td><td><code>n</code> or <code>n</code>+1 or ... or <code>m</code> <code>x</code>, prefer fewer</td></tr>
+<tr><td><code>x{n,}?</code></td><td><code>n</code> or more <code>x</code>, prefer fewer</td></tr>
+<tr><td><code>x{n}?</code></td><td>exactly <code>n</code> <code>x</code></td></tr>
+</table>
+
+<table>
+<tr><th>kinds of single-character expressions</th><th>examples</th></tr>
+<tr><td>any character</td><td><code>.</code></td></tr>
+<tr><td>character class</td><td><code>[xyz]</code></td></tr>
+<tr><td>negated character class</td><td><code>[^xyz]</code></td></tr>
+<tr><td>Perl character class <a href="#perl">(link)</a></td><td><code>\d</code></td></tr>
+<tr><td>negated Perl character class</td><td><code>\D</code></td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Empty strings</th></tr>
+<tr><td><code>^</code></td><td>at beginning of text</td></tr>
+<tr><td><code>$</code></td><td>at end of text</td></tr>
+<tr><td><code>\b</code></td><td>at ASCII word boundary</td></tr>
+<tr><td><code>\B</code></td><td>not at ASCII word boundary</td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Escape sequences</th></tr>
+<tr><td><code>\t</code></td><td>horizontal tab (≡ <code>\011</code>)</td></tr>
+<tr><td><code>\n</code></td><td>newline (≡ <code>\012</code>)</td></tr>
+<tr><td><code>\r</code></td><td>carriage return (≡ <code>\015</code>)</td></tr></table>
+
+<table>
+<tr><th></th><th>Character class elements</th></tr>
+<tr><td><code>x</code></td><td>single character</td></tr>
+<tr><td><code>A-Z</code></td><td>character range (inclusive)</td></tr>
+<tr><td><code>\d</code></td><td>Perl character class</td></tr>
+</table>
+
+<a name="perl"></a>
+<table>
+<tr><th></th><th>Perl character classes (all ASCII-only)</th></tr>
+<tr><td><code>\d</code></td><td>digits (≡ <code>[0-9]</code>)</td></tr>
+<tr><td><code>\s</code></td><td>whitespace (≡ <code>[\t\n\f\r ]</code>)</td></tr>
+<tr><td><code>\w</code></td><td>word characters (≡ <code>[0-9A-Za-z_]</code>)</td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Composites</th></tr>
+<tr><td><code>xy</code></td><td><code>x</code> followed by <code>y</code></td></tr>
+<tr><td><code>x|y</code></td><td><code>x</code> or <code>y</code> (prefer <code>x</code>)</td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Grouping</th></tr>
+<tr><td><code>(re)</code></td><td>numbered capturing group (submatch)</td></tr>
+<tr><td><code>(?:re)</code></td><td>non-capturing group</td></tr>
+</table>
+
+<table>
+<tr><th></th><th>Flags</th></tr>
+<tr><td><code>g</code></td><td>global</td></tr>
+<tr><td><code>i</code></td><td>case-insensitive</td></tr>
+</table>
+
+<style>
+    * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: left;
+    }
+    h1 {
+        font-weight: 600;
+        border-bottom: 1px solid #afafaf;
+    }
+    table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th {
+        border-bottom: 1px solid;
+    }
+    td {
+        border-top: 1px solid grey;
+    }
+    th, td {
+        padding-right: 20px;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/*/
+.*
+*.pdf
+
+!/fr/
+!/img/
+!/.gitignore
