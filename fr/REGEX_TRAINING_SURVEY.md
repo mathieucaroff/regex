@@ -12,7 +12,7 @@ Merci d'indiquer la lettre (U / V / P) en début de ligne, après le tiret. Par 
 
 - P `/./`
 
-Les lettres `x` et `y` symbolisent un morceau d'expression régulière. Les lettres `a`, `b` et `c` symbolisent des caractères unique (non-spéciaux). La lettre `N`, en majuscule, symbolise un nombre entier positif et non-nul.
+Les lettres `x` et `y` symbolisent un morceau d'expression régulière. Les lettres `a`, `b` et `c` symbolisent des caractères unique (non-spéciaux).
 
 - `/./`
 - `/x?/`
@@ -45,17 +45,19 @@ Les lettres `x` et `y` symbolisent un morceau d'expression régulière. Les lett
 - `/[[:graph:]]/`
 - `/(?i)/`
 - `/(?-i)/`
+
 ---
+
 - `/(?=x)/`
 - `/(?!x)/`
 - `/(?<=x)/`
-- `/(?<!x)/` 
+- `/(?<!x)/`
 - `/(x|y)\1/`
 - `/(?P<name>x|y)(?P=name)/`
-- `/(?0)/`
-- `/(?n)/`
-- `/(?&name)/`
-- `/(?P>name)/`
+- `/x?(?0)/`
+- `/(x?)(?1)/`
+- `/(?P<name>x?)(?&name)/`
+- `/(?P<name>x?)(?P>name)/`
 
 ### Remplacement - techniques
 
@@ -73,7 +75,7 @@ Merci d'indiquer la lettre (U / V / P) en début de ligne, après le tiret. Par 
 
 Dans le cas ou vous êtes sûr (P), merci d'indiquer à la **fin** de la ligne le remplacement que vous utiliseriez. Merci d'utiliser la notation de remplacement suivante: `s/<regex>/<remplacement>/<flags>` (notation inspirée de `sed`). Dans le remplacement, merci d'utiliser de préférance les références numériques avec backslash (`s/(.)/\1/`) à celles avec dollar (`s/(.)/$1/`). Par exemple:
 
-- P "Supprimer tous les caractères de chaque ligne, sauf le premier" s/(.).*/\1/
+- P "Supprimer tous les caractères de chaque ligne, sauf le premier" s/(.).\*/\1/
 
 ---
 
@@ -102,4 +104,4 @@ Dans le cas ou vous êtes sûr (P), merci d'indiquer à la **fin** de la ligne l
 
 ### Suggestions
 
-- "Avez vous des attentes particulières vis-à-vis de cette formation, des suggestions à faire ?" 
+- "Avez vous des attentes particulières vis-à-vis de cette formation, des suggestions à faire ?"
