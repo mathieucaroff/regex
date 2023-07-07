@@ -31,7 +31,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 
 - Le charactère `*`:
   - Il remplace n'importe quel suite de caractères
-  - Il remplace n'importe quel suite de caractères dont le code est compris entre 32 (" ") et 127 ("~")
+  - Il remplace n'importe quel suite de caractères dont le code ascii est compris entre 32 (" ") et 127 ("~")
   - Il autorise zero répétition-s ou plus du caractère ou groupe qui le précède
   - Il autorise zero répétition-s ou plus du caractère ou groupe qui le succède
   - Je ne sais pas
@@ -47,14 +47,14 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 
 ### Syntaxe - remplacement
 
-- Dans un éditeur de text, laquelle des substitutions ci-dessous permet de remplacer toutes les occurences du motif "wazaa" par "aarg", sachant que le nombre de `a` à la fin de "waza" varie de 1 à 900 et que le nombre de `a` au début de "aarg" doit correspondre au nombre de `a` à la fin de "wazaa" ?
+- Dans un éditeur de text, laquelle des substitutions ci-dessous permet de remplacer toutes les occurences du motif "wazaa" par "aarg", tel que le nombre de `a` à la fin de waza soit égal au nombre de `a` au début de arg ? Il est garanti que le nombre de `a` sera toujours compris entre 1 et 900.
   - `s/"waz(a)*"/"$1rg"/`
   - `s/"waz(a*)"/"$1rg"/`
   - `s/"waz(a)*"/"$1rg"/g`
   - `s/"waz(a*)"/"$1rg"/g`
   - Je ne sais pas
 
-- Dans un éditeur de text, laquelle des substitutions ci-dessous permet de supprimer tout les commentaires d'un fichier Python ? Nous rappellons que en Python, les commentaires sont toujours introduit par le caractère `#`. Nous supposont aussi que le caractère `#` est absent de toute chaine de caractère du fichier:
+- Dans un éditeur de text, laquelle des substitutions ci-dessous permet de supprimer tout les commentaires d'un fichier Python ? Nous rappellons que en Python, les commentaires sont toujours introduit par le caractère `#`. Nous supposeront aussi que le caractère `#` est absent de toute chaine de caractère du fichier:
   - `s/ *#*//g`
   - `s/ *#.*//g`
   - `s/#(*)//g`
@@ -65,7 +65,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 
 ### Culture et Théorie
 
-(Cloudflare regex filter crash)
+(Cloudflare regex filter crash + existing regex engines + )
 
 ### Utilisation en ligne de commande
 

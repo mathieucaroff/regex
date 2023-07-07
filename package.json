@@ -6,6 +6,7 @@
   "author": "Mathieu CAROFF <mathieu.caroff@free.fr>",
   "license": "JAM",
   "dependencies": {
+    "@types/reveal.js": "^4.4.2",
     "bootstrap": "^5.3.0",
     "reveal.js": "^4.5.0",
     "reveal.js-menu": "^2.1.0",

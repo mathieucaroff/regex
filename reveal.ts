@@ -1,10 +1,11 @@
-import Reveal from "reveal.js";
-import RevealHighlight from "reveal.js/plugin/highlight/highlight.js";
-import RevealMarkdown from "reveal.js/plugin/markdown/markdown.js";
-import RevealSearch from "reveal.js/plugin/search/search.js";
-import RevealNotes from "reveal.js/plugin/notes/notes.js";
-import RevealMath from "reveal.js/plugin/math/math.js";
-import RevealZoom from "reveal.js/plugin/zoom/zoom.js";
+import Reveal from "reveal.js"
+import RevealHighlight from "reveal.js/plugin/highlight/highlight.js"
+import RevealMarkdown from "reveal.js/plugin/markdown/markdown.js"
+import RevealSearch from "reveal.js/plugin/search/search.js"
+import RevealNotes from "reveal.js/plugin/notes/notes.js"
+import RevealMath from "reveal.js/plugin/math/math.js"
+import RevealZoom from "reveal.js/plugin/zoom/zoom.js"
+import RevealTOC from "./revealTOC"
 
 let deck = new Reveal({
   plugins: [
@@ -15,10 +16,14 @@ let deck = new Reveal({
     RevealMath,
     RevealZoom,
     (window as any).RevealMenu,
+    RevealTOC,
   ],
-  menu: {
-    numbers: true,
-    openButton: false,
+  slideNumber: "h.v",
+  ...{
+    menu: {
+      numbers: true,
+      openButton: false,
+    },
   },
-});
-deck.initialize();
+})
+deck.initialize()

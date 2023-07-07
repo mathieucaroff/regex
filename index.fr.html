@@ -1,299 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, usem-scalable=no"
-    />
 
-    <title>Regular Expression training course</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, usem-scalable=no" />
 
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css" />
-    <link
-      rel="stylesheet"
-      href="node_modules/reveal.js/plugin/highlight/monokai.css"
-    />
-    <link
-      rel="stylesheet"
-      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
-    />
-  </head>
+  <title>Regular Expression training course</title>
 
-  <body>
-    <script>
-      class MComponent extends HTMLSpanElement {}
-      customElements.define("m-", MComponent, { extends: "span" });
-      class CopyComponent extends HTMLSpanElement {}
-      customElements.define("copy-", CopyComponent, { extends: "span" });
-    </script>
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+</head>
 
-    <div class="reveal">
-      <div class="slides">
-        <section>
-          <h1>Formation aux expressions régulières</h1>
-          <em class="fragment">/Reg[Ee]xp?/ training course</em>
-        </section>
-        <section>
-          <h2>Sommaire</h2>
+<body>
+  <script>
+    class MComponent extends HTMLSpanElement { }
+    customElements.define("m-", MComponent, { extends: "span" });
+    class CopyComponent extends HTMLSpanElement { }
+    customElements.define("copy-", CopyComponent, { extends: "span" });
+  </script>
 
-          <ul class="fs-2">
-            <li>Introduction</li>
-            <li>
-              Fonctionnement et syntax des regexps
-              <ul>
-                <li>Classes</li>
-                <li>Répétitions</li>
-                <li>Groupes et alternatives</li>
-              </ul>
-            </li>
-            <li>Exemples</li>
-            <li>Exercices</li>
-            <li>
-              Regex
-              <ul>
-                <li>en ligne de commande</li>
-                <li>en JS</li>
-                <li>en Python</li>
-              </ul>
-            </li>
-            <li>Culture, théorie et moteurs de regexps</li>
-            <li>Autres ressources</li>
-            <aside class="notes">
-              Cette présentation des expressions régulières s'interessera aux
-              fonctionnalités les plus utiles des regexs et à leur utilisation
-              en pratique. On évitera donc des sujets avancés et beaucoups de
-              fonctionnalités peu utiles, voire complètement inutiles.
-            </aside>
-          </ul>
-        </section>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Formation aux expressions régulières</h1>
+        <em class="fragment">/Reg[Ee]xp?/ training course</em>
+        <p class="fragment">Première présentation : "approche explicite"</p>
+        <aside class="notes">
+          Cette présentation des expressions régulières s'interessera aux
+          fonctionnalités les plus utiles des regexs et à leur utilisation
+          en pratique. On évitera donc les sujets les plus avancés et beaucoups
+          de fonctionnalités peu utiles.
+        </aside>
+      </section>
+      <section>
+        <h2>Sommaire</h2>
 
+        <ul class="fs-2 table-of-contents" data-unfold-content="Introduction">
+          <li>
+            Introduction
+            <ul>
+              <li>Exemple de Regex</li>
+              <li>Utilisation des regexs dans l'IDE</li>
+            </ul>
+          </li>
+          <li>
+            Fonctionnement et syntax des regexs
+            <ol>
+              <li>Texte</li>
+              <li>Répétitions</li>
+              <li>Groupes</li>
+              <li>Alternatives</li>
+              <li>Répétitions spécifiques</li>
+              <li>Classes</li>
+              <li>Échapements</li>
+            </ol>
+          </li>
+          <li>Cas habituels</li>
+          <li>Exercices</li>
+          <li>
+            Les Regexs hors de l'IDE
+            <ul>
+              <li>en ligne de commande</li>
+              <li>en JS</li>
+              <li>en Python</li>
+            </ul>
+          </li>
+          <li>Les expressions régulières c'est quoi ? À quoi ça sert ?</li>
+          <li>Culture, théorie et moteurs de regexs</li>
+          <li>Autres ressources</li>
+        </ul>
+      </section>
+
+      <section>
+        <h1>Introduction</h1>
+      </section>
+      <section>
+        <h2>Les expressions régulières c'est quoi ?</h2>
+        <h2 class="fragment">À quoi ça sert?</h2>
+        <div class="fragment decoration-right-rotated">
+          <code>grep -E 'useState\((true|false)\)' -R src | sort | uniq -c</code>
+        </div>
+        <div class="fragment decoration-left-rotated">
+          <code>s/(myAuthSecrets?)(-+[Pp]ages?)?/$1/g</code>
+        </div>
+        <img class="fragment" src="img/ant-renamer-regex-substitution.png" />
+        <aside class="notes">
+          Les regexs sont un outils de recherche et de remplacement de motifs
+          de caractères dans des données textuelles. Ces motifs sont décrits
+          par un langage spécifique à un domain, ou DSL, Domain Specifique
+          Language : le DSL des expressions régulières. Les regexs peuvent
+          servir à toutes sorte de choses. Par exemple: Trouver du code
+          relatif à une fonctionnalité suivant des motifs plus complexe que la
+          recherche simple. Faire des statistiques sur l'utilisation de
+          fonctions dans le code. Le renommage de plusieurs variables
+          simultanement. Le rennomage de fichier. Valider qu'un email ou un
+          numéro de téléphone entré par l'utilisateur ne comporte pas d'erreur
+          de format.
+        </aside>
+      </section>
+      <section>
+        <h2>Exemple de regex</h2>
+        <a href="https://regex101.com/?regex=^(\+33|0)( ?[0-9]){7}$"><code>/^ *(\+33|0)( ?[0-9]){7} *$/</code></a>
+        <aside class="notes">
+          Voici une expression régulière qui match uniquement les numéros de téléphone.
+        </aside>
+      </section>
+      <section>
         <section>
-          <h1>Introduction</h1>
-        </section>
-        <section>
-          <h2>Les expressions régulières c'est quoi ?</h2>
-          <h2 class="fragment">À quoi ça sert?</h2>
-          <aside class="notes">
-            Les regexs sont un outils de recherche et de remplacement de motifs
-            de caractères dans des données textuelles. Ces motifs sont décrits
-            par un langage spécifique à un domain, ou DSL, Domain Specifique
-            Language : le DSL des expressions régulières. Les regexs peuvent
-            servir à toutes sorte de choses. Par exemple: Trouver du code
-            relatif à une fonctionnalité suivant des motifs plus complexe que la
-            recherche simple. Faire des statistiques sur l'utilisation de
-            fonctions dans le code. Le renommage de plusieurs variables
-            simultanement. Le rennomage de fichier. Valider qu'un email ou un
-            numéro de téléphone entré par l'utilisateur ne comporte pas d'erreur
-            de format.
-          </aside>
-        </section>
-        <section>
-          <h2>Exemple de regex</h2>
-          <a href="https://regex101.com/?regex=^[a-z0-9_-]{3,13}$"
-            ><img
-              alt="regex-example"
-              src="https://www.scutmath.com/learn-regex/img/regexp-fr.png"
-          /></a>
-          <aside class="notes">
-            Voici une expression régulière qui match exactement 3 à 15
-            caractères alphanumérique en minuscule ou tiret bas ou trait
-            d'union.
-          </aside>
-        </section>
-        <section>
-          <section>
-            <h2>Utiliser les regexs dans l'IDE</h2>
-            <div class="r-stack fs-2">
-              <div class="fragment fade-out" data-fragment-index="1">
-                <div>
-                  <img
-                    src="./img/vscode-regex-search.png"
-                    alt="Using regex search in VSCode"
-                  />
-                </div>
-                <em>Regex dans VSCode</em> - <code>Alt+R</code>
+          <h2>Utiliser les regexs dans l'IDE</h2>
+          <div class="r-stack fs-2">
+            <div class="fragment fade-out" data-fragment-index="1">
+              <div>
+                <img src="./img/vscode-regexsearch.png" alt="Using regex search in VSCode" />
               </div>
-              <div class="fragment fade-in" data-fragment-index="1">
-                <div>
-                  <a href="https://stackoverflow.com/q/3760444"
-                    ><img
-                      src="./img/vim-regex-search.png"
-                      alt="Using regex search in Vim"
-                      height="200"
-                  /></a>
-                </div>
-                <em>Regex dans Vim</em> - <code>/\v</code> (<code
-                  >:nnoremap / /\v</code
-                >)
-              </div>
+              <em>Regex dans VSCode</em> - <code>Alt+R</code>
             </div>
-            <aside class="notes">
-              Pour utiliser les expressions régulière dans votre IDE favori, il
-              y a le raccourci clavier Alt+R pour VSCode. Pour Vim, il faut
-              activer le mode very magic avec `\v` pour avoir des Regex
-              traditionelles. Pour les autres éditeurs de text et IDE, c'est
-              souvent une checkbox à cocher.
-            </aside>
-          </section>
-        </section>
-
-        <section>
-          <h1>Fonctionnement et syntax des regexps</h1>
-        </section>
-        <section>
-          <h2>Matcher du text, caractère pour caractère</h2>
-
-          <ul class="fs-1">
-            <li>Les lettres (<code>A-Za-z</code>)</li>
-            <li>Les nombres (<code>0-9</code>)</li>
-            <li>Les blancs (<code> \n\r\t</code>)</li>
-            <li>
-              La pluspart des ponctuations (<code>`~!@#%&-=_;:'",&lt;></code>)
-            </li>
-          </ul>
-          <span class="fragment fs-2"
-            >(Les ponctuations à échapper par antislash (<code>\</code>) sont:
-            <code>$^*()+[]{}.?/\</code>)</span
-          >
-        </section>
-        <section>
-          <section>
-            <h2>Matcher n'import quel caractère: le point</h2>
-            <s><code>/?/</code></s
-            >, <code>/./</code>
-            <p class="fragment">
-              Comment trouver tout les mots de 5 caractères à l'interieur d'une
-              phrase ?
-            </p>
-            <code class="fragment">/ ..... /g</code>
-          </section>
-          <section>
-            <h5>Exemple français</h5>
-            <p>
-              "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
-            </p>
-            <code>/ ..... /g</code>
-            <blockquote>
-              <div class="r-stack">
-                <p class="fragment fade-out" data-fragment-index="1">
-                  <span id="vielleMaison"
-                    >Aussitôt la vieille maison <m->grise</m-> sur la rue où
-                    <m->était</m-> sa chambre vint <m->comme</m-> un
-                    <m->décor</m-> de théâtre s'appliquer au
-                    <m->petit</m-> pavillon.</span
-                  >
-                </p>
-                <p class="fragment fade-in green" data-fragment-index="1">
-                  <copy- from="vielleMaison" />
-                </p>
+            <div class="fragment fade-in" data-fragment-index="1">
+              <div>
+                <a href="https://stackoverflow.com/q/3760444"><img src="./img/vim-regexsearch.png"
+                    alt="Using regex search in Vim" height="200" /></a>
               </div>
-            </blockquote>
-          </section>
-          <section>
-            <h5>Exemple latin</h5>
-            <p>
-              "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
-            </p>
-            <code>/ ..... /g</code>
-            <blockquote>
-              <div class="r-stack">
-                <p class="fragment fade-out" data-fragment-index="1">
-                  Lorem <m->ipsum</m-> dolor sit <m->amet,</m-> consectetur
-                  <m->et ut</m-> adipiscing elit.
-                </p>
-                <p
-                  class="fragment fade-in-then-out blue"
-                  data-fragment-index="1"
-                >
-                  Lorem <m->ipsum</m-> dolor sit
-                  <m->amet,</m->
-                  consectetur <m->et ut</m-> adipiscing elit.
-                </p>
-                <p class="fragment fade-in red">
-                  <m->Lorem</m-> <m- class="green">ipsum</m-> <m->dolor</m-> sit
-                  <m->amet,</m->
-                  consectetur <m->et ut</m-> adipiscing <m->elit.</m->
-                </p>
-              </div>
-            </blockquote>
-          </section>
+              <em>Regex dans Vim</em> - <code>/\v</code> (<code>:nnoremap / /\v</code>)
+            </div>
+          </div>
+          <aside class="notes">
+            Pour utiliser les expressions régulière dans votre IDE favori, il
+            y a le raccourci clavier Alt+R pour VSCode. Pour Vim, il faut
+            activer le mode very magic avec `\v` pour avoir des Regex
+            traditionelles. Pour les autres éditeurs de text et IDE, c'est
+            souvent une checkbox à cocher.
+          </aside>
+        </section>
+      </section>
+
+      <section>
+        <h1>Fonctionnement et syntax des regexs</h1>
+      </section>
+      <section>
+        <h2>Fonctionnement et syntax des regexs</h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Fonctionnement et syntax des regexs"></ul>
+      </section>
+      <section>
+        <h2>Matcher du text, caractère pour caractère</h2>
+
+        <ul class="fs-1">
+          <li>Les lettres (<code>A-Za-z</code>)</li>
+          <li>Les nombres (<code>0-9</code>)</li>
+          <li>Les blancs (<code> \n\r\t</code>)</li>
+          <li>
+            La pluspart des ponctuations (<code>`~!@#%&-=_;:'",&lt;></code>)
+          </li>
+        </ul>
+      </section>
+      <section>
+        <section>
+          <h2>Matcher n'import quel caractère: le point</h2>
+          <s><code>/?/</code></s>, <code>/./</code>
+          <p class="fragment">
+            Comment trouver tout les mots de 5 caractères à l'interieur d'une
+            phrase ?
+          </p>
+          <code class="fragment">/ ..... /g</code>
         </section>
         <section>
-          <h2>Les classes de caractères</h2>
-          <em class="fragment">Enumération complète</em>
-          <ul>
-            <li class="fragment">
-              grand-mère et grand-père
-              <code class="fragment">/grand-[mp]ère/</code>
-            </li>
-            <li class="fragment">
-              boucher, coucher, doucher, loucher, moucher, toucher
-              <code class="fragment">/[bcdlmt]oucher/</code>
-            </li>
-          </ul>
+          <h5>Exemple français</h5>
+          <p>
+            "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
+          </p>
+          <code>/ ..... /g</code>
+          <blockquote>
+            <div class="r-stack">
+              <p class="fragment fade-out" data-fragment-index="1">
+                <span id="vielleMaison">Aussitôt la vieille maison <m->grise</m-> sur la rue où
+                  <m->était</m-> sa chambre vint <m->comme</m-> un
+                  <m->décor</m-> de théâtre s'appliquer au
+                  <m->petit</m-> pavillon.</span>
+              </p>
+              <p class="fragment fade-in green" data-fragment-index="1">
+                <copy- from="vielleMaison" />
+              </p>
+            </div>
+          </blockquote>
         </section>
         <section>
-          <h2>Les classes de caractères</h2>
-          <em
-            >Ranges de caractères
-            <div class="fragment">(Ranges ASCII)</div></em
-          >
-          <ul>
-            <li class="fragment">
-              "Trouver les majuscules"
-              <code class="fragment">/[A-Z]/</code>
-            </li>
-            <li class="fragment">
-              "Trouver les nombres entiers tels que `21` ou `1,987,654`"
-              <code class="fragment">/[0-9,]/</code>
-            </li>
-            <li class="fragment">
-              "Trouver les caractères `[`, `-` et `]` qui sont suivis d'une
-              minuscule"
-              <code class="fragment">/[][-][a-z]/</code>
-              <code class="fragment">/[[\-\]][a-z]/</code>
-            </li>
-          </ul>
+          <h5>Exemple latin</h5>
+          <p>
+            "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
+          </p>
+          <code>/ ..... /g</code>
+          <blockquote>
+            <div class="r-stack">
+              <p class="fragment fade-out" data-fragment-index="1">
+                Lorem <m->ipsum</m-> dolor sit <m->amet,</m-> consectetur
+                <m->et ut</m-> adipiscing elit.
+              </p>
+              <p class="fragment fade-in-then-out blue" data-fragment-index="1">
+                Lorem <m->ipsum</m-> dolor sit
+                <m->amet,</m->
+                consectetur <m->et ut</m-> adipiscing elit.
+              </p>
+              <p class="fragment fade-in red">
+                <m->Lorem</m-> <m- class="green">ipsum</m-> <m->dolor</m-> sit
+                <m->amet,</m->
+                consectetur <m->et ut</m-> adipiscing <m->elit.</m->
+              </p>
+            </div>
+          </blockquote>
         </section>
-        <section>
-          <h2>Les classes de caractères négatives</h2>
-        </section>
-      </div>
+      </section>
+      <section>
+        <h2>Les classes de caractères</h2>
+        <em class="fragment">Enumération complète</em>
+        <ul>
+          <li class="fragment">
+            grand-mère et grand-père
+            <code class="fragment">/grand-[mp]ère/</code>
+          </li>
+          <li class="fragment">
+            boucher, coucher, doucher, loucher, moucher, toucher
+            <code class="fragment">/[bcdlmt]oucher/</code>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Les classes de caractères</h2>
+        <em>Ranges de caractères
+          <div class="fragment">(Ranges ASCII)</div>
+        </em>
+        <ul>
+          <li class="fragment">
+            "Trouver les majuscules"
+            <code class="fragment">/[A-Z]/</code>
+          </li>
+          <li class="fragment">
+            "Trouver les lettres minuscules"
+            <code class="fragment">/[a-z]/</code>
+          </li>
+          <li class="fragment">
+            "Trouver les chiffres"
+            <code class="fragment">/[0-9]/</code>
+          </li>
+          <li class="fragment">
+            "Trouver les lettres"
+            <code class="fragment">/[A-Za-z]/</code>
+          </li>
+          <li class="fragment">
+            Combiner Ranges et Enumérations ?
+            <span class="fragment">Oui ! <code>/[0-9+*/-]/</code></span>
+          </li>
+          <li class="fragment">
+            "Trouver les caractères <code>[</code>, <code>-</code> et <code>]</code>"
+            <code class="fragment">/[[\-\]]/</code>
+            <code class="fragment">/[][-]/</code>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Les classes de caractères</h2>
+        <em>Les classes négatives
+          <div class="fragment">(Les compléments de classe de caractères)</div>
+        </em>
+      </section>
+      <section>
+      <span class="fragment fs-2">(Les ponctuations à échapper par antislash (<code>\</code>) sont:
+        <code>$^*()+[]{}.?/\</code>)</span>
+      </section>
     </div>
+  </div>
 
-    <style>
-      img[alt="regex-example"] {
-        -webkit-filter: invert(1);
-        filter: invert(1);
-      }
+  <style>
+    img[alt="regex-example"] {
+      -webkit-filter: invert(1);
+      filter: invert(1);
+    }
 
-      .red m-,
-      div m-.red {
-        color: red;
-      }
+    .red m-,
+    div m-.red {
+      color: red;
+    }
 
-      .green m-,
-      div m-.green {
-        color: green;
-      }
+    .green m-,
+    div m-.green {
+      color: green;
+    }
 
-      .blue m-,
-      div m-.blue {
-        color: #0066ff;
-      }
-    </style>
+    .blue m-,
+    div m-.blue {
+      color: #0066ff;
+    }
 
-    <script src="node_modules/reveal.js-menu/menu.js"></script>
-    <script src="reveal.ts" type="module"></script>
-    <script>
-      document.querySelectorAll("copy-").forEach((copy) => {
-        copy.innerHTML = document.getElementById(
-          copy.getAttribute("from")
-        ).innerHTML;
-      });
-    </script>
-  </body>
+    .decoration-left-rotated {
+      transform: translate(-300px, 0) rotate(35deg);
+    }
+
+    .decoration-right-rotated {
+      transform: translate(300px, 0) rotate(-25deg);
+    }
+  </style>
+
+  <script src="node_modules/reveal.js-menu/menu.js"></script>
+  <script src="revealTOC.js"></script>
+  <script src="reveal.ts" type="module"></script>
+  <script>
+    document.querySelectorAll("copy-").forEach((copy) => {
+      copy.innerHTML = document.getElementById(
+        copy.getAttribute("from")
+      ).innerHTML;
+    });
+  </script>
+</body>
+
 </html>
