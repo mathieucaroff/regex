@@ -23,6 +23,7 @@ let deck = new Reveal({
     menu: {
       numbers: true,
       openButton: false,
+      width: "30em",
     },
   },
 })

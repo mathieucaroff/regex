@@ -58,6 +58,7 @@
               <li>Ancres</li>
             </ol>
           </li>
+          <li>Remplacements</li>
           <li>Cas habituels</li>
           <li>Exercices</li>
           <li>
@@ -111,13 +112,13 @@
         <section>
           <h2>Utiliser les regexs dans l'IDE</h2>
           <div class="r-stack fs-2">
-            <div fragment class="fade-out" data-fragment-index="1">
+            <div class="fade-out" data-fragment-index="1">
               <div>
                 <img src="./img/vscode-regex-search.png" alt="Using regex search in VSCode" />
               </div>
               <em>Regex dans VSCode</em> - <code>Alt+R</code>
             </div>
-            <div fragment class="fade-in" data-fragment-index="1">
+            <div class="fade-in" data-fragment-index="1">
               <div>
                 <a href="https://stackoverflow.com/q/3760444"><img src="./img/vim-regex-search.png"
                     alt="Using regex search in Vim" height="200" /></a>
@@ -291,13 +292,13 @@
           <table>
             <thead>
               <th><code>(ab+, )*</code></th>
-              <th style="text-align: right;" fragment data-fragment-index="1">A &nbsp;</th>
-              <th style="text-align: right;" fragment data-fragment-index="2">B &nbsp;</th>
+              <th style="text-align: right;" data-fragment-index="1">A &nbsp;</th>
+              <th style="text-align: right;" data-fragment-index="2">B &nbsp;</th>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <ol fragment data-fragment-index="0">
+                  <ol data-fragment-index="0">
                     <li>ab, ab, ab, </li>
                     <li>abb, abb, abb, </li>
                     <li>abbb, abbb, abbb, </li>
@@ -307,7 +308,7 @@
                   </ol>
                 </td>
                 <td>
-                  <ul fragment data-fragment-index="1" no-list-style>
+                  <ul data-fragment-index="1" no-list-style>
                     <li>✅</li>
                     <li>✅</li>
                     <li>✅</li>
@@ -317,7 +318,7 @@
                   </ul>
                 </td>
                 <td>
-                  <ul fragment data-fragment-index="2" no-list-style>
+                  <ul data-fragment-index="2" no-list-style>
                     <li>✅</li>
                     <li>✅</li>
                     <li>✅</li>
@@ -406,29 +407,234 @@
         </ul>
       </section>
       <section>
-        <h2>Quantificateurs spécifiques</h2>
-        <h4>Les classes négatives</h4>
+        <h2 qs>Quantificateurs spécifiques</h2>
+        <em>Répétitions de motifs</em>
+        <table>
+          <thead>
+            <tr>
+              <th>Syntaxe</th>
+              <th>Exemples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr fragment>
+              <td><code>/ab{4}/</code></td>
+              <td fragment>abbbb</td>
+            </tr>
+            <tr fragment>
+              <td><code>/ab{2,4}/</code></td>
+              <td fragment>abb, abbb, abbbb</td>
+            </tr>
+            <tr fragment>
+              <td><code>/ab{2,}/</code></td>
+              <td fragment>abb, abbb, abbbb, abbbbb...</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section>
-        <h2 classes>Échapements</h2>
-        <ol fragment>
-          <li>Le point: <code>.</code></li>
-        </ol>
-        <span fragment class="fs-2">(Les ponctuations à échapper par antislash (<code>\</code>) sont:
-          <code>$^*()+[]{}.?/\</code>)</span>
-        <li fragment>
-          les caractères <code>[</code>, <code>-</code> et <code>]</code>"
-          <code fragment>/[[\-\]]/</code>
-          <code fragment>/[][-]/</code>
-        </li>
+        <h2><copy- from="[qs]" /></h2>
+        <em>Répétitions de motifs</em>
+        <table>
+          <thead>
+            <tr>
+              <th>Syntaxe</th>
+              <th>Description</th>
+              <th>Équivalent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-fragment-index="1"><code>/x*/</code></td>
+              <td data-fragment-index="2" class="fs-2">"Autant de fois que possible"</td>
+              <td fragment><code>/x{0,}/</code></td>
+            </tr>
+            <tr>
+              <td data-fragment-index="1"><code>/x+/</code></td>
+              <td data-fragment-index="2" class="fs-2">"Au moins une fois"</td>
+              <td fragment><code>/x{1,}/</code></td>
+            </tr>
+            <tr>
+              <td data-fragment-index="1"><code>/x?/</code></td>
+              <td data-fragment-index="2" class="fs-2">"Zero ou une fois"</td>
+              <td fragment><code>/x{0,1}/</code></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section>
-        <h2 classes>Ancres</h2>
-        <ol fragment>
-          <li fragment>Le carret: <code>^</code><span fragment> → Début de ligne</span></li>
-          <li fragment>Le dollard: <code>$</code><span fragment> → Fin de ligne</span></li>
-          <li fragment>L'anti-slash B: <code>\b</code><span fragment> → Début ou fin d'un mot ASCII</span></li>
-        </ol>
+        <h2>Échapements</h2>
+        <table>
+          <tbody>
+            <tr class="fs-2">
+              <td>
+                <ol>
+                  <li data-fragment-index="1">Caractères rares</li>
+                  <li data-fragment-index="2">Classes de caractères</li>
+                  <li data-fragment-index="3">Ponctuations</li>
+                  <li data-fragment-index="4">Assertion de longeur nulle</li>
+                </ol>
+              </td>
+              <td>
+                <ul no-list-style>
+                  <li data-fragment-index="5">→ <code>\n, \t, \r, ...</code></li>
+                  <li data-fragment-index="6">→ <code>\d, \w, \s, ...</code></li>
+                  <li data-fragment-index="7">→ <code>\+, \$, \\, ...</code></li>
+                  <li data-fragment-index="8">→ <code>\b, \B, ...</code></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Caractères rares</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Syntaxe</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/\n/</code></td>
+              <td class="fs-2">Retour à la ligne (LF: Line Feed)</td>
+            </tr>
+            <tr>
+              <td><code>/\t/</code></td>
+              <td class="fs-2">Tabulation</td>
+            </tr>
+            <tr>
+              <td><code>/\r/</code></td>
+              <td class="fs-2">Retour chariot (CR: Carriage Return)</td>
+            </tr>
+            <tr>
+              <td><code>/\r\n/</code></td>
+              <td class="fs-2">"CRLF": Carriage Return Line Feed</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Classe de caractères</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Syntaxe</th>
+              <th>Description</th>
+              <th>Équivalent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-fragment-index="1"><code>/\d/</code></td>
+              <td fragment class="fs-2">"Chiffre"</td>
+              <td fragment><code>/[0-9]/</code></td>
+            </tr>
+            <tr>
+              <td data-fragment-index="1"><code>/\w/</code></td>
+              <td fragment class="fs-2">"Caractère de mot"</td>
+              <td fragment><code>/[0-9A-Za-z_]/</code></td>
+            </tr>
+            <tr>
+              <td data-fragment-index="1"><code>/\s/</code></td>
+              <td fragment class="fs-2">"Caractère d'espacement"</td>
+              <td fragment><code>/[\t\n\f\r ]/</code></td>
+            </tr>
+            <tr>
+              <td data-fragment-index="1"><code>/\S/</code></td>
+              <td fragment class="fs-2">"Non-caractère d'espacement"</td>
+              <td fragment><code>/[^\t\n\f\r ]/</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Ponctuations (31)</h4>
+        <ul>
+          <li fragment>
+            Ponctuations à échapper (14):
+            <ul>
+              <li><code>$^*()+[]{}.?/\</code></li>
+            </ul>
+          </li>
+          <li fragment>
+            Ponctuations neutres (17):
+            <ul>
+              <li><code>`~!@#%&-=_;:'",&lt;></code></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Assertion de longeur nulle</h4>
+        <ul>
+          <li fragment>L'anti-slash "b": <code>/\b/</code><span fragment> → Début ou fin d'un mot ASCII</span></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Ancres</h2>
+        <em>Assertions de longeur nulle</em>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <ol>
+                  <li data-fragment-index="1">Le carret: <code>/^/</code></li>
+                  <li data-fragment-index="2">Le dollard: <code>/$/</code></li>
+                </ol>
+              </td>
+              <td>
+                <ul no-list-style>
+                  <li data-fragment-index="3"> → Début de ligne</li>
+                  <li data-fragment-index="4"> → Fin de ligne</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h1 remplacement>Remplacements</h1>
+      </section>
+      <section>
+        <h2><copy- from="[remplacement]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Remplacements"></ul>
+      </section>
+
+      <section>
+        <h1>Cas habituels</h1>
+      </section>
+
+      <section>
+        <h1>Exercices</h1>
+      </section>
+
+      <section>
+        <h1>Les Regex hors de l'IDE</h1>
+      </section>
+      <section>
+        <h2><copy- from="[outOfIde]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Les Regex hors de l'IDE"></ul>
+      </section>
+
+      <section>
+        <h1 culture>Culture, théorie et moteurs de regexs</h1>
+      </section>
+
+      <section>
+        <h2><copy- from="[culture]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Culture, théorie et moteurs de regexs"></ul>
+      </section>
+
+      <section>
+        <h1>Autres ressources</h1>
       </section>
     </div>
   </div>
@@ -473,7 +679,7 @@
 
   <script>
     if (!location.search.includes("print-pdf")) {
-      document.querySelectorAll("[fragment]").forEach((element) => {
+      document.querySelectorAll("[fragment], [data-fragment-index]").forEach((element) => {
         element.classList.add("fragment")
       })
     }
