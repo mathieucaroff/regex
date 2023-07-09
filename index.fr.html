@@ -26,9 +26,8 @@
     <div class="slides">
       <section>
         <h1>Formation aux expressions régulières</h1>
-        <em class="fragment">/Reg[Ee]xp?/ training course</em>
-        <p class="fragment">Première présentation : "approche explicite"</p>
-        <aside class="notes">
+        <em fragment>/Reg[Ee]xp?/ training course</em>
+        <aside>
           Cette présentation des expressions régulières s'interessera aux
           fonctionnalités les plus utiles des regexs et à leur utilisation
           en pratique. On évitera donc les sujets les plus avancés et beaucoups
@@ -47,15 +46,16 @@
             </ul>
           </li>
           <li>
-            Fonctionnement et syntax des regexs
+            Fonctionnement et syntaxes des regexs
             <ol>
               <li>Texte</li>
-              <li>Répétitions</li>
-              <li>Groupes</li>
               <li>Alternatives</li>
-              <li>Répétitions spécifiques</li>
-              <li>Classes</li>
+              <li>Groupes</li>
+              <li>Quantificateurs</li>
+              <li>Classes de caractères</li>
+              <li>Quantificateurs spécifiques</li>
               <li>Échapements</li>
+              <li>Ancres</li>
             </ol>
           </li>
           <li>Cas habituels</li>
@@ -68,7 +68,6 @@
               <li>en Python</li>
             </ul>
           </li>
-          <li>Les expressions régulières c'est quoi ? À quoi ça sert ?</li>
           <li>Culture, théorie et moteurs de regexs</li>
           <li>Autres ressources</li>
         </ul>
@@ -79,32 +78,32 @@
       </section>
       <section>
         <h2>Les expressions régulières c'est quoi ?</h2>
-        <h2 class="fragment">À quoi ça sert?</h2>
-        <div class="fragment decoration-right-rotated">
-          <code>grep -E 'useState\((true|false)\)' -R src | sort | uniq -c</code>
+        <h2 fragment>À quoi ça sert?</h2>
+        <div fragment class="decoration-right-rotated">
+          <code><pre>grep -E 'useState\((true|false)\)' -R src | sort | uniq -c</pre></code>
         </div>
-        <div class="fragment decoration-left-rotated">
+        <div fragment class="decoration-left-rotated">
           <code>s/(myAuthSecrets?)(-+[Pp]ages?)?/$1/g</code>
         </div>
-        <img class="fragment" src="img/ant-renamer-regex-substitution.png" />
-        <aside class="notes">
+        <img fragment src="img/ant-renamer-regex-substitution.png" />
+        <aside>
           Les regexs sont un outils de recherche et de remplacement de motifs
           de caractères dans des données textuelles. Ces motifs sont décrits
           par un langage spécifique à un domain, ou DSL, Domain Specifique
-          Language : le DSL des expressions régulières. Les regexs peuvent
-          servir à toutes sorte de choses. Par exemple: Trouver du code
-          relatif à une fonctionnalité suivant des motifs plus complexe que la
-          recherche simple. Faire des statistiques sur l'utilisation de
-          fonctions dans le code. Le renommage de plusieurs variables
-          simultanement. Le rennomage de fichier. Valider qu'un email ou un
+          Language : le DSL des expressions régulières. || Les regexs peuvent
+          servir à toutes sorte de choses. Par exemple: || Trouver des données
+          spécifiques dans les logs grâce à des motifs plus complexe que la
+          recherche lettre pour lettre. || Faire des statistiques sur l'utilisation de
+          fonctions dans le code.|| Le renommage de plusieurs variables
+          simultanement. || Le rennomage de fichier. Valider qu'un email ou un
           numéro de téléphone entré par l'utilisateur ne comporte pas d'erreur
           de format.
         </aside>
       </section>
       <section>
         <h2>Exemple de regex</h2>
-        <a href="https://regex101.com/?regex=^(\+33|0)( ?[0-9]){7}$"><code>/^ *(\+33|0)( ?[0-9]){7} *$/</code></a>
-        <aside class="notes">
+        <a href="https://regex101.com/?regex=^ *(\+33|0)( ?[0-9]){7} *$"><code>/^ *(\+33|0)( ?[0-9]){7} *$/</code></a>
+        <aside>
           Voici une expression régulière qui match uniquement les numéros de téléphone.
         </aside>
       </section>
@@ -112,21 +111,21 @@
         <section>
           <h2>Utiliser les regexs dans l'IDE</h2>
           <div class="r-stack fs-2">
-            <div class="fragment fade-out" data-fragment-index="1">
+            <div fragment class="fade-out" data-fragment-index="1">
               <div>
-                <img src="./img/vscode-regexsearch.png" alt="Using regex search in VSCode" />
+                <img src="./img/vscode-regex-search.png" alt="Using regex search in VSCode" />
               </div>
               <em>Regex dans VSCode</em> - <code>Alt+R</code>
             </div>
-            <div class="fragment fade-in" data-fragment-index="1">
+            <div fragment class="fade-in" data-fragment-index="1">
               <div>
-                <a href="https://stackoverflow.com/q/3760444"><img src="./img/vim-regexsearch.png"
+                <a href="https://stackoverflow.com/q/3760444"><img src="./img/vim-regex-search.png"
                     alt="Using regex search in Vim" height="200" /></a>
               </div>
               <em>Regex dans Vim</em> - <code>/\v</code> (<code>:nnoremap / /\v</code>)
             </div>
           </div>
-          <aside class="notes">
+          <aside>
             Pour utiliser les expressions régulière dans votre IDE favori, il
             y a le raccourci clavier Alt+R pour VSCode. Pour Vim, il faut
             activer le mode very magic avec `\v` pour avoir des Regex
@@ -137,141 +136,312 @@
       </section>
 
       <section>
-        <h1>Fonctionnement et syntax des regexs</h1>
+        <h1 syntaxe>Fonctionnement et syntaxes des regexs</h1>
       </section>
       <section>
-        <h2>Fonctionnement et syntax des regexs</h2>
-        <ul class="fs-2 table-of-contents" data-unfold-content="Fonctionnement et syntax des regexs"></ul>
+        <h2><copy- from="[syntaxe]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Fonctionnement et syntaxes des regexs"></ul>
       </section>
       <section>
-        <h2>Matcher du text, caractère pour caractère</h2>
+        <section>
+          <h2 matcher>Matcher du text, caractère pour caractère</h2>
 
-        <ul class="fs-1">
-          <li>Les lettres (<code>A-Za-z</code>)</li>
-          <li>Les nombres (<code>0-9</code>)</li>
-          <li>Les blancs (<code> \n\r\t</code>)</li>
-          <li>
-            La pluspart des ponctuations (<code>`~!@#%&-=_;:'",&lt;></code>)
+          <ul class="fs-1">
+            <li>Les lettres (<code>A-Za-z</code>)</li>
+            <li>Les nombres (<code>0-9</code>)</li>
+            <li>Les blancs<ul>
+                <li>Espaces</li>
+                <li>Tabulations</li>
+                <li>Retours à la ligne</li>
+              </ul>
+            </li>
+            <li>
+              La majorité des ponctuations (17 / 31)
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2><copy- from="[matcher]" /></h2>
+          <h4>Exemples</h4>
+          <ul class="fs-1">
+            <li fragment>"Foo" <code fragment>/Foo/</code></li>
+            <li fragment>"H3110" <code fragment>/H3110/</code></li>
+            <li fragment>"a, b" <code fragment>/a, b/</code></li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <h2>Groupes</h2>
+        <code>(...)</code>
+        <h4 padding fragment>Exemples</h4>
+        <ul>
+          <li fragment><code>(Foo)</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>(F)(o)(o)</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>((((Foo))))</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>((((F))((o)o)))</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>((((Foo))</code><span fragment>❌</span></li>
+          <li fragment><code>)Foo(</code><span fragment>❌</span></li>
+          <li fragment><code>((Foo))))</code><span fragment>❌</span></li>
+        </ul>
+        <aside>
+          Placer un morceau d'expression régulière entre deux parenthèses crée un groupe.
+        </aside>
+      </section>
+      <section>
+        <h2>Alternatives</h2>
+        <code>a|b</code>
+        <h4 padding fragment>Exemples</h4>
+        <ul>
+          <li fragment><code>Tooltip|Popover</code></li>
+          <li fragment><code>un pain au chocolat|une chocolatine</code></li>
+          <li fragment>
+            <code>(Date|Time|DateTime)Picker</code>
+            <ul>
+              <li fragment><code>DatePicker|TimePicker|DateTimePicker</code></li>
+            </ul>
+          </li>
+          <li fragment>
+            <code>(jp(e|)|pn)g|bmp|gif</code>
+            <ul>
+              <li fragment><code>jpeg|jpg|png|bmp|gif</code></li>
+            </ul>
+          </li>
+          <li fragment>
+            <code>(|_)(a|b)(x|y|z)</code>
+            <ul>
+              <li fragment><code>ax|ay|az|bx|by|bz|_ax|_ay|_az|_bx|_by|_bz</code></li>
+            </ul>
           </li>
         </ul>
+        <aside>
+          Le symbole "bar verticale" `|` permet de définir plusieurs alternatives
+          que le moteur d'expression régulière essaira de matcher dans l'ordre.
+          Il est possible limiter différentes alternatives en les placer entre
+          parenthèses.
+        </aside>
       </section>
       <section>
         <section>
-          <h2>Matcher n'import quel caractère: le point</h2>
-          <s><code>/?/</code></s>, <code>/./</code>
-          <p class="fragment">
-            Comment trouver tout les mots de 5 caractères à l'interieur d'une
-            phrase ?
-          </p>
-          <code class="fragment">/ ..... /g</code>
+          <h2>Quantificateurs</h2>
+          <em>Répétitions de motifs</em>
+          <table>
+            <thead>
+              <tr>
+                <th>Syntaxe</th>
+                <th>Exemples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr fragment>
+                <td><code>/ab*/</code></td>
+                <td>a, ab, abb, abbb...</td>
+              </tr>
+              <tr fragment>
+                <td><code>/ab+/</code></td>
+                <td><span style="margin: 0 1em" />ab, abb, abbb...</td>
+              </tr>
+              <tr fragment>
+                <td><code>/ab?/</code></td>
+                <td>a, ab</td>
+              </tr>
+            </tbody>
+          </table>
+          <aside>
+            Il est possible de spécifier qu'un caractère peut être répété plusieurs fois.
+            Le caractère "étoile" `*` indique que le caractère le précède peut apparaitre entre 0 et une infinité de
+            fois.
+            Le caractère "plus" `+` indique que le caractère qui le précède peut être répété infiniment.
+            Enfin, le caractère "point d'interrogation" `?` indique que le caractère qui le précède est optionnel ;
+            il peut être présent ou absent.
+          </aside>
         </section>
         <section>
-          <h5>Exemple français</h5>
-          <p>
-            "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
-          </p>
-          <code>/ ..... /g</code>
-          <blockquote>
-            <div class="r-stack">
-              <p class="fragment fade-out" data-fragment-index="1">
-                <span id="vielleMaison">Aussitôt la vieille maison <m->grise</m-> sur la rue où
-                  <m->était</m-> sa chambre vint <m->comme</m-> un
-                  <m->décor</m-> de théâtre s'appliquer au
-                  <m->petit</m-> pavillon.</span>
-              </p>
-              <p class="fragment fade-in green" data-fragment-index="1">
-                <copy- from="vielleMaison" />
-              </p>
-            </div>
-          </blockquote>
+          <h2>Quantificateurs</h2>
+          <h4>Exemples d'applications</h4>
+          <ul>
+            <li fragment>
+              "http:" et "https:"
+              <code fragment>/https?:/</code>
+            </li>
+            <li fragment>
+              "regex" et "regexp"
+              <code fragment>/regexp?/</code>
+            </li>
+            <li fragment>
+              "wow" et "wowwww"
+              <code fragment>/wow+/</code>
+            </li>
+            <li fragment>
+              "être prêt", "être bientôt prêt"
+              <ul fragment>
+                <li><code>/être (bientôt )?prêt/</code></li>
+              </ul>
+            </li>
+            <li fragment>
+              "être content" et "être très content" et "être très très content"
+              <ul fragment>
+                <li><code>/être (très )*content/</code></li>
+              </ul>
+            </li>
+          </ul>
         </section>
         <section>
-          <h5>Exemple latin</h5>
-          <p>
-            "Trouver tout les mots de 5 caractères à l'interieur d'une phrase"
-          </p>
-          <code>/ ..... /g</code>
-          <blockquote>
-            <div class="r-stack">
-              <p class="fragment fade-out" data-fragment-index="1">
-                Lorem <m->ipsum</m-> dolor sit <m->amet,</m-> consectetur
-                <m->et ut</m-> adipiscing elit.
-              </p>
-              <p class="fragment fade-in-then-out blue" data-fragment-index="1">
-                Lorem <m->ipsum</m-> dolor sit
-                <m->amet,</m->
-                consectetur <m->et ut</m-> adipiscing elit.
-              </p>
-              <p class="fragment fade-in red">
-                <m->Lorem</m-> <m- class="green">ipsum</m-> <m->dolor</m-> sit
-                <m->amet,</m->
-                consectetur <m->et ut</m-> adipiscing <m->elit.</m->
-              </p>
-            </div>
-          </blockquote>
+          <h2>Quantificateurs</h2>
+          <h4>Question de la répétition de groupe complexe</h4>
+          <table>
+            <thead>
+              <th><code>(ab+, )*</code></th>
+              <th style="text-align: right;" fragment data-fragment-index="1">A &nbsp;</th>
+              <th style="text-align: right;" fragment data-fragment-index="2">B &nbsp;</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ol fragment data-fragment-index="0">
+                    <li>ab, ab, ab, </li>
+                    <li>abb, abb, abb, </li>
+                    <li>abbb, abbb, abbb, </li>
+                    <li>ab, abbbb, </li>
+                    <li>abb, ab, </li>
+                    <li>abbbbbb, abb,</li>
+                  </ol>
+                </td>
+                <td>
+                  <ul fragment data-fragment-index="1" no-list-style>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>❌</li>
+                    <li>❌</li>
+                    <li>❌</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul fragment data-fragment-index="2" no-list-style>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>✅</li>
+                    <li>✅</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </section>
       <section>
-        <h2>Les classes de caractères</h2>
-        <em class="fragment">Enumération complète</em>
+        <h2 classes>Classes de caractères</h2>
+        <ol fragment>
+          <li>Le point: <code>.</code></li>
+          <li>Les énumérations complètes: <code>[abcdef]</code></li>
+          <li>Les plages: <code>[a-f]</code></li>
+          <li>Les classes négatives: <code>[^g-z]</code></li>
+        </ol>
+      </section>
+      <section>
+        <h2><copy- from="[classes]" /></h2>
+        <h4>Matcher n'import quel caractère: le point</h4>
+        <code>/./</code>
+        <p fragment><code>/.*/</code></p>
+        <p fragment><code>/(.|\n)*/</code></p>
+      </section>
+      <section>
+        <h2><copy- from="[classes]" /></h2>
+        <h4>Matcher un caractère au choix :<br>les énumérations complètes</h4>
+        <code>/[abcdef]/</code>
+        <div fragment><code>/(a|b|c|d|e|f)/</code></div>
+        <h4 fragment>Exemples</h4>
         <ul>
-          <li class="fragment">
+          <li fragment>
             grand-mère et grand-père
-            <code class="fragment">/grand-[mp]ère/</code>
+            <code fragment>/grand-[mp]ère/</code>
           </li>
-          <li class="fragment">
+          <li fragment>
             boucher, coucher, doucher, loucher, moucher, toucher
-            <code class="fragment">/[bcdlmt]oucher/</code>
+            <code fragment>/[bcdlmt]oucher/</code>
           </li>
         </ul>
       </section>
       <section>
-        <h2>Les classes de caractères</h2>
-        <em>Ranges de caractères
-          <div class="fragment">(Ranges ASCII)</div>
-        </em>
+        <h2><copy- from="[classes]" /></h2>
+        <h4>Plages de caractères</h4>
+        <p><em fragment>(Plages ASCII)</em></p>
         <ul>
-          <li class="fragment">
-            "Trouver les majuscules"
-            <code class="fragment">/[A-Z]/</code>
+          <li fragment>
+            les majuscules
+            <code fragment>/[A-Z]/</code>
           </li>
-          <li class="fragment">
-            "Trouver les lettres minuscules"
-            <code class="fragment">/[a-z]/</code>
+          <li fragment>
+            les lettres minuscules
+            <code fragment>/[a-z]/</code>
           </li>
-          <li class="fragment">
-            "Trouver les chiffres"
-            <code class="fragment">/[0-9]/</code>
+          <li fragment>
+            les chiffres
+            <code fragment>/[0-9]/</code>
           </li>
-          <li class="fragment">
-            "Trouver les lettres"
-            <code class="fragment">/[A-Za-z]/</code>
+          <li fragment>
+            les lettres
+            <code fragment>/[A-Za-z]/</code>
           </li>
-          <li class="fragment">
-            Combiner Ranges et Enumérations ?
-            <span class="fragment">Oui ! <code>/[0-9+*/-]/</code></span>
+          <li fragment>
+            les chiffres hexadécimaux
+            <code fragment>/0x[0-9A-Fa-f]+/</code>
           </li>
-          <li class="fragment">
-            "Trouver les caractères <code>[</code>, <code>-</code> et <code>]</code>"
-            <code class="fragment">/[[\-\]]/</code>
-            <code class="fragment">/[][-]/</code>
+          <li fragment>
+            les identifieurs
+            <code fragment>/[A-Za-z_][A-Za-z_0-9]*/</code>
           </li>
         </ul>
       </section>
       <section>
-        <h2>Les classes de caractères</h2>
-        <em>Les classes négatives
-          <div class="fragment">(Les compléments de classe de caractères)</div>
-        </em>
+        <h2><copy- from="[classes]" /></h2>
+        <h4>Les classes négatives</h4>
+        <p><em fragment>(Les compléments de classe de caractères)</em></p>
+        <div><code fragment>/[^x]/</code></div>
+        <ul>
+          <li fragment><code>/[^"]/</code><span fragment> → <code>/"[^"]*"/</code></span></li>
+          <li fragment><code>/[^"0-9]/</code><span fragment> → <code>/"[^"0-9]*"/</code></span></li>
+        </ul>
       </section>
       <section>
-      <span class="fragment fs-2">(Les ponctuations à échapper par antislash (<code>\</code>) sont:
-        <code>$^*()+[]{}.?/\</code>)</span>
+        <h2>Quantificateurs spécifiques</h2>
+        <h4>Les classes négatives</h4>
+      </section>
+      <section>
+        <h2 classes>Échapements</h2>
+        <ol fragment>
+          <li>Le point: <code>.</code></li>
+        </ol>
+        <span fragment class="fs-2">(Les ponctuations à échapper par antislash (<code>\</code>) sont:
+          <code>$^*()+[]{}.?/\</code>)</span>
+        <li fragment>
+          les caractères <code>[</code>, <code>-</code> et <code>]</code>"
+          <code fragment>/[[\-\]]/</code>
+          <code fragment>/[][-]/</code>
+        </li>
+      </section>
+      <section>
+        <h2 classes>Ancres</h2>
+        <ol fragment>
+          <li fragment>Le carret: <code>^</code><span fragment> → Début de ligne</span></li>
+          <li fragment>Le dollard: <code>$</code><span fragment> → Fin de ligne</span></li>
+          <li fragment>L'anti-slash B: <code>\b</code><span fragment> → Début ou fin d'un mot ASCII</span></li>
+        </ol>
       </section>
     </div>
   </div>
 
   <style>
+    ul[no-list-style] {
+      list-style: none;
+    }
+
+    [padding] {
+      padding-top: 50px;
+    }
+
     img[alt="regex-example"] {
       -webkit-filter: invert(1);
       filter: invert(1);
@@ -301,12 +471,22 @@
     }
   </style>
 
+  <script>
+    if (!location.search.includes("print-pdf")) {
+      document.querySelectorAll("[fragment]").forEach((element) => {
+        element.classList.add("fragment")
+      })
+    }
+    document.querySelectorAll("aside").forEach((element) => {
+      element.classList.add("notes")
+    })
+  </script>
   <script src="node_modules/reveal.js-menu/menu.js"></script>
   <script src="revealTOC.js"></script>
   <script src="reveal.ts" type="module"></script>
   <script>
     document.querySelectorAll("copy-").forEach((copy) => {
-      copy.innerHTML = document.getElementById(
+      copy.innerHTML = document.querySelector(
         copy.getAttribute("from")
       ).innerHTML;
     });
