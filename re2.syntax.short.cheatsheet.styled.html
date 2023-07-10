@@ -45,12 +45,6 @@
             <h3 id="repetitions"><a class="h-anchor" href="#repetitions">#</a>Repetitions</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Repetitions</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>x*</code></td>
@@ -96,16 +90,10 @@
           </div>
           <div class="h3-wrap">
             <h3 id="kinds-of-single-character-expressions"><a class="h-anchor"
-                href="#kinds-of-single-character-expressions">#</a>kinds of single-character expressions
+                href="#kinds-of-single-character-expressions">#</a>Kinds of single-character expressions
             </h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th>kinds of single-character expressions</th>
-                    <th>examples</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td>any character</td>
@@ -135,12 +123,6 @@
             <h3 id="empty-strings"><a class="h-anchor" href="#empty-strings">#</a>Empty strings</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Empty strings</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>^</code></td>
@@ -163,47 +145,34 @@
             </div>
           </div>
           <div class="h3-wrap">
-            <h3 id="escape-sequences"><a class="h-anchor" href="#escape-sequences">#</a>Escape sequences
+            <h3 id="rare-characters"><a class="h-anchor" href="#rare-characters">#</a>Rare characters
             </h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>\t</code></td>
-                    <td>horizontal tab (≡ <code>\011</code>)</td>
+                    <td>horizontal tab (≡ <code>\x09</code>)</td>
                   </tr>
                   <tr>
                     <td><code>\n</code></td>
-                    <td>newline (≡ <code>\012</code>)</td>
+                    <td>newline (≡ <code>\x0A</code>)</td>
                   </tr>
                   <tr>
                     <td><code>\r</code></td>
-                    <td>carriage return (≡ <code>\015</code>)</td>
+                    <td>carriage return (≡ <code>\x0D</code>)</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
           <div class="h3-wrap">
-            <h3 id="character-class-elements"><a class="h-anchor" href="#character-class-elements">#</a>Character class
-              elements</h3>
+            <h3 id="character-class-elements"><a class="h-anchor" href="#character-class-elements">#</a>Character class elements <code>[x]</code>, <code>[^x]</code></h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
-                    <td><code>x</code></td>
+                    <td><code>a</code></td>
                     <td>single character</td>
                   </tr>
                   <tr>
@@ -224,12 +193,6 @@
               ASCII-only)</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>\d</code></td>
@@ -251,19 +214,13 @@
             <h3 id="composites"><a class="h-anchor" href="#composites">#</a>Composites</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Composites</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>xy</code></td>
                     <td><code>x</code> followed by <code>y</code></td>
                   </tr>
                   <tr>
-                    <td><code>x\|y</code></td>
+                    <td><code>x|y</code></td>
                     <td><code>x</code> or <code>y</code> (prefer <code>x</code>)</td>
                   </tr>
                 </tbody>
@@ -274,19 +231,13 @@
             <h3 id="grouping"><a class="h-anchor" href="#grouping">#</a>Grouping</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Grouping</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
-                    <td><code>(re)</code></td>
+                    <td><code>(x)</code></td>
                     <td>numbered capturing group (submatch)</td>
                   </tr>
                   <tr>
-                    <td><code>(?:re)</code></td>
+                    <td><code>(?:x)</code></td>
                     <td>non-capturing group</td>
                   </tr>
                 </tbody>
@@ -297,12 +248,6 @@
             <h3 id="flags"><a class="h-anchor" href="#flags">#</a>Flags</h3>
             <div class="section">
               <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Flags</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
                     <td><code>g</code></td>

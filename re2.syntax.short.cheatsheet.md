@@ -14,7 +14,7 @@ This cheatsheet covers the basics of the regular expression syntax
 | `x{n,}?`  | `n` or more `x`, prefer fewer                |
 | `x{n}?`   | exactly `n` `x`                              |
 
-| kinds of single-character expressions | examples |
+| Kinds of single-character expressions | examples |
 | ------------------------------------- | -------- |
 | any character                         | `.`      |
 | character class                       | `[xyz]`  |
