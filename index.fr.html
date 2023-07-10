@@ -54,8 +54,8 @@
               <li>Quantificateurs</li>
               <li>Classes de caractères</li>
               <li>Quantificateurs spécifiques</li>
-              <li>Échapements</li>
               <li>Ancres</li>
+              <li>Échapements</li>
             </ol>
           </li>
           <li>Remplacements</li>
@@ -463,29 +463,63 @@
         </table>
       </section>
       <section>
+        <h2>Ancres</h2>
+        <em>Assertions de longeur nulle</em>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <ol>
+                  <li data-fragment-index="1">Le carret: <code>/^/</code></li>
+                  <li data-fragment-index="2">Le dollard: <code>/$/</code></li>
+                </ol>
+              </td>
+              <td>
+                <ul no-list-style>
+                  <li data-fragment-index="3"> → Début de ligne</li>
+                  <li data-fragment-index="4"> → Fin de ligne</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
         <h2>Échapements</h2>
         <table>
           <tbody>
             <tr class="fs-2">
               <td>
                 <ol>
-                  <li data-fragment-index="1">Caractères rares</li>
-                  <li data-fragment-index="2">Classes de caractères</li>
-                  <li data-fragment-index="3">Ponctuations</li>
-                  <li data-fragment-index="4">Assertion de longeur nulle</li>
+                  <li data-fragment-index="1">Assertion de longeur nulle</li>
+                  <li data-fragment-index="2">Caractères rares</li>
+                  <li data-fragment-index="3">Classes de caractères Perl</li>
+                  <li data-fragment-index="4">Ponctuations</li>
+                  <li data-fragment-index="5">Contexte des classes de caractères</li>
                 </ol>
               </td>
               <td>
                 <ul no-list-style>
-                  <li data-fragment-index="5">→ <code>\n, \t, \r, ...</code></li>
-                  <li data-fragment-index="6">→ <code>\d, \w, \s, ...</code></li>
-                  <li data-fragment-index="7">→ <code>\+, \$, \\, ...</code></li>
-                  <li data-fragment-index="8">→ <code>\b, \B, ...</code></li>
+                  <li data-fragment-index="6">→ <code>\b, \B, ...</code></li>
+                  <li data-fragment-index="7">→ <code>\n, \t, \r, ...</code></li>
+                  <li data-fragment-index="8">→ <code>\d, \w, \s, ...</code></li>
+                  <li data-fragment-index="9">→ <code>\+, \$, \\, ...</code></li>
+                  <li data-fragment-index="10">→ <code>[\x], [^\x]</code></li>
                 </ul>
               </td>
             </tr>
           </tbody>
         </table>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Assertion de longeur nulle</h4>
+        <ul>
+          <li fragment>
+            L'anti-slash "b": <code>/\b/</code>
+            <ul><li fragment>Début ou fin d'un mot ASCII</li></ul>
+          </li>
+        </ul>
       </section>
       <section>
         <h2>Échapements</h2>
@@ -519,7 +553,7 @@
       </section>
       <section>
         <h2>Échapements</h2>
-        <h4>Classe de caractères</h4>
+        <h4>Classe de caractères Perl</h4>
         <table>
           <thead>
             <tr>
@@ -555,50 +589,40 @@
       <section>
         <h2>Échapements</h2>
         <h4>Ponctuations (31)</h4>
+        <em>Dans le context générale</em>
         <ul>
-          <li fragment>
-            Ponctuations à échapper (14):
-            <ul>
-              <li><code>$^*()+[]{}.?/\</code></li>
-            </ul>
-          </li>
           <li fragment>
             Ponctuations neutres (17):
             <ul>
               <li><code>`~!@#%&-=_;:'",&lt;></code></li>
             </ul>
           </li>
+          <li fragment>
+            Ponctuations à échapper (14):
+            <ul>
+              <li><code>$^*()+[]{}.?/\</code></li>
+              <li fragment><code>\$\^\*\(\)\+\[\]\{\}\.\?\/\\</code></li>
+            </ul>
+          </li>
         </ul>
       </section>
       <section>
         <h2>Échapements</h2>
-        <h4>Assertion de longeur nulle</h4>
+        <h4>Ponctuations</h4>
+        <em>Dans le context d'une classe de caractères <code>[x]</code></em>
         <ul>
-          <li fragment>L'anti-slash "b": <code>/\b/</code><span fragment> → Début ou fin d'un mot ASCII</span></li>
+          <li fragment>
+            Ponctuations à échapper: <span fragment><code>[]-/\</code></span>
         </ul>
       </section>
+
       <section>
-        <h2>Ancres</h2>
-        <em>Assertions de longeur nulle</em>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <ol>
-                  <li data-fragment-index="1">Le carret: <code>/^/</code></li>
-                  <li data-fragment-index="2">Le dollard: <code>/$/</code></li>
-                </ol>
-              </td>
-              <td>
-                <ul no-list-style>
-                  <li data-fragment-index="3"> → Début de ligne</li>
-                  <li data-fragment-index="4"> → Fin de ligne</li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h1>Aide mémoire</h1>
       </section>
+
+      <section
+        data-background-iframe="re2.syntax.short.cheatsheet.styled.html"
+      ></section>
 
       <section>
         <h1 remplacement>Remplacements</h1>
