@@ -46,8 +46,8 @@
             </ul>
           </li>
           <li>
-            Fonctionnement et syntaxes des regexs
-            <ol>
+            Syntaxe des regexs
+            <ol style="column-count: 2;">
               <li>Texte</li>
               <li>Alternatives</li>
               <li>Groupes</li>
@@ -137,11 +137,11 @@
       </section>
 
       <section>
-        <h1 syntaxe>Fonctionnement et syntaxes des regexs</h1>
+        <h1 syntaxe>Syntaxe des regexs</h1>
       </section>
       <section>
         <h2><copy- from="[syntaxe]" /></h2>
-        <ul class="fs-2 table-of-contents" data-unfold-content="Fonctionnement et syntaxes des regexs"></ul>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Syntaxe des regexs"></ul>
       </section>
       <section>
         <section>
@@ -176,13 +176,13 @@
         <code>(...)</code>
         <h4 padding fragment>Exemples</h4>
         <ul>
-          <li fragment><code>(Foo)</code><span fragment> → "Foo"</span></li>
-          <li fragment><code>(F)(o)(o)</code><span fragment> → "Foo"</span></li>
-          <li fragment><code>((((Foo))))</code><span fragment> → "Foo"</span></li>
-          <li fragment><code>((((F))((o)o)))</code><span fragment> → "Foo"</span></li>
-          <li fragment><code>((((Foo))</code><span fragment>❌</span></li>
-          <li fragment><code>)Foo(</code><span fragment>❌</span></li>
-          <li fragment><code>((Foo))))</code><span fragment>❌</span></li>
+          <li fragment><code>/(Foo)/</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>/(F)(o)(o)/</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>/((((Foo))))/</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>/((((F))((o)o)))/</code><span fragment> → "Foo"</span></li>
+          <li fragment><code>/((((Foo))/</code><span fragment>❌</span></li>
+          <li fragment><code>/)Foo(/</code><span fragment>❌</span></li>
+          <li fragment><code>/((Foo))))/</code><span fragment>❌</span></li>
         </ul>
         <aside>
           Placer un morceau d'expression régulière entre deux parenthèses crée un groupe.
@@ -191,26 +191,26 @@
       <section>
         <h2>Alternatives</h2>
         <code>a|b</code>
-        <h4 padding fragment>Exemples</h4>
+        <h4 fragment>Exemples</h4>
         <ul>
-          <li fragment><code>Tooltip|Popover</code></li>
-          <li fragment><code>un pain au chocolat|une chocolatine</code></li>
+          <li fragment><code>/Tooltip|Popover/</code></li>
+          <li fragment><code>/un pain au chocolat|une chocolatine/</code></li>
           <li fragment>
-            <code>(Date|Time|DateTime)Picker</code>
+            <code>/(Date|Time|DateTime)Picker/</code>
             <ul>
-              <li fragment><code>DatePicker|TimePicker|DateTimePicker</code></li>
+              <li fragment><code>/DatePicker|TimePicker|DateTimePicker/</code></li>
             </ul>
           </li>
           <li fragment>
-            <code>(jp(e|)|pn)g|bmp|gif</code>
+            <code>/(jp(e|)|pn)g|bmp|gif/</code>
             <ul>
-              <li fragment><code>jpeg|jpg|png|bmp|gif</code></li>
+              <li fragment><code>/jpeg|jpg|png|bmp|gif/</code></li>
             </ul>
           </li>
           <li fragment>
-            <code>(|_)(a|b)(x|y|z)</code>
+            <code>/(|_)(a|b)(x|y|z)/</code>
             <ul>
-              <li fragment><code>ax|ay|az|bx|by|bz|_ax|_ay|_az|_bx|_by|_bz</code></li>
+              <li fragment><code>/ax|ay|az|bx|by|bz|_ax|_ay|_az|_bx|_by|_bz/</code></li>
             </ul>
           </li>
         </ul>
@@ -291,7 +291,7 @@
           <h4>Question de la répétition de groupe complexe</h4>
           <table>
             <thead>
-              <th><code>(ab+, )*</code></th>
+              <th><code>/(ab+, )*/</code></th>
               <th style="text-align: right;" data-fragment-index="1">A &nbsp;</th>
               <th style="text-align: right;" data-fragment-index="2">B &nbsp;</th>
             </thead>
@@ -304,7 +304,7 @@
                     <li>abbb, abbb, abbb, </li>
                     <li>ab, abbbb, </li>
                     <li>abb, ab, </li>
-                    <li>abbbbbb, abb,</li>
+                    <li>abbbbbb, abb, </li>
                   </ol>
                 </td>
                 <td>
@@ -614,10 +614,6 @@
           <li fragment>
             Ponctuations à échapper: <span fragment><code>[]-/\</code></span>
         </ul>
-      </section>
-
-      <section>
-        <h1>Aide mémoire</h1>
       </section>
 
       <section

@@ -24,7 +24,9 @@ function init() {
       let entryTitle = entry.firstChild.nodeValue!.trim()
 
       if (entryTitle === point.dataset.unfoldContent) {
-        point.appendChild(entry.cloneNode(true))
+        const element = entry.cloneNode(true) as HTMLElement
+        element.style.fontWeight = "bold"
+        point.appendChild(element)
       } else {
         const entryCopy = document.createElement(entry.tagName)
         entryCopy.append(document.createTextNode(entryTitle))
