@@ -43,12 +43,13 @@
             <ul>
               <li>Exemple de Regex</li>
               <li>Utilisation des regexs dans l'IDE</li>
+              <li>Utilisation des regexs en programmation</li>
+              <li>Recherche simple</li>
             </ul>
           </li>
           <li>
             Syntaxe des regexs
             <ol style="column-count: 2;">
-              <li>Texte</li>
               <li>Alternatives</li>
               <li>Groupes</li>
               <li>Quantificateurs</li>
@@ -94,11 +95,11 @@
           Language : le DSL des expressions régulières. || Les regexs peuvent
           servir à toutes sorte de choses. Par exemple: || Trouver des données
           spécifiques dans les logs grâce à des motifs plus complexe que la
-          recherche lettre pour lettre. || Faire des statistiques sur l'utilisation de
-          fonctions dans le code.|| Le renommage de plusieurs variables
-          simultanement. || Le rennomage de fichier. Valider qu'un email ou un
-          numéro de téléphone entré par l'utilisateur ne comporte pas d'erreur
-          de format.
+          recherche lettre pour lettre. || Faire des statistiques sur l'utilisation
+          de fonctions dans le code.|| La recherche de fichiers par nom. Le renommage
+          de plusieurs variables simultanement. || Le rennomage de fichier. Valider
+          qu'un email ou un numéro de téléphone entré par l'utilisateur ne comporte
+          pas d'erreur de format.
         </aside>
       </section>
       <section>
@@ -135,17 +136,54 @@
           </aside>
         </section>
       </section>
-
       <section>
-        <h1 syntaxe>Syntaxe des regexs</h1>
-      </section>
-      <section>
-        <h2><copy- from="[syntaxe]" /></h2>
-        <ul class="fs-2 table-of-contents" data-unfold-content="Syntaxe des regexs"></ul>
+        <h2>Utilisation des regexs en programmation</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Sortie</th>
+              <th>Exemple en JS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Test</td>
+              <td>booléen</td>
+              <td><code>c = /a(bc)/.test("abc")</code></td>
+            </tr>
+            <tr>
+              <td>Recherche</td>
+              <td>entier</td>
+              <td><code>c = "abc".search(/a(bc)/)</code></td>
+            </tr>
+            <tr>
+              <td>Match simple</td>
+              <td>Match ([entier, entier, string][])</td>
+              <td><code>m = "abc".match(/a(bc)/)</code></td>
+            </tr>
+            <tr>
+              <td>Match global</td>
+              <td>Match[]</td>
+              <td><code>m = "abc".match(/a(bc)/g)</code></td>
+            </tr>
+            <tr>
+              <td>Remplacement (simple ou global)</td>
+              <td>string</td>
+              <td><code>m = "abc".replace(/a(bc)/g)</code></td>
+            </tr>
+            <tr>
+              <td>Séparation</td>
+              <td>string[]</td>
+              <td><code>m = "abc".split(/a(bc)/g)</code></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section>
         <section>
-          <h2 matcher>Matcher du text, caractère pour caractère</h2>
+          <h2 simplesearch>Recherche simple</h2>
+          <em>Matcher du text, caractère pour caractère</em>
 
           <ul class="fs-1">
             <li>Les lettres (<code>A-Za-z</code>)</li>
@@ -162,7 +200,7 @@
           </ul>
         </section>
         <section>
-          <h2><copy- from="[matcher]" /></h2>
+          <h2><copy- from="[simplesearch]" /></h2>
           <h4>Exemples</h4>
           <ul class="fs-1">
             <li fragment>"Foo" <code fragment>/Foo/</code></li>
@@ -170,6 +208,14 @@
             <li fragment>"a, b" <code fragment>/a, b/</code></li>
           </ul>
         </section>
+      </section>
+
+      <section>
+        <h1 syntaxe>Syntaxe des regexs</h1>
+      </section>
+      <section>
+        <h2><copy- from="[syntaxe]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Syntaxe des regexs"></ul>
       </section>
       <section>
         <h2>Groupes</h2>
@@ -655,6 +701,12 @@
 
       <section>
         <h1>Autres ressources</h1>
+      </section>
+      <section>
+        <li><a href="https://regex101.com">Regex 101</a></li>
+        <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de MDN</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet Regex de MDN</a></li>
       </section>
     </div>
   </div>
