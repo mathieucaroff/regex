@@ -73,7 +73,7 @@ Merci d'indiquer la lettre (U / V / P) en début de ligne, après le tiret. Par 
 
 - U "Supprimer toutes les lignes qui contiennent le mot 'brindille'"
 
-Dans le cas ou vous êtes sûr (P), merci d'indiquer à la **fin** de la ligne le remplacement que vous utiliseriez. Merci d'utiliser la notation de remplacement suivante: `s/<regex>/<remplacement>/<flags>` (notation inspirée de `sed`). Dans le remplacement, merci d'utiliser de préférance les références numériques avec backslash (`s/(.)/\1/`) à celles avec dollar (`s/(.)/$1/`). Par exemple:
+Dans le cas ou vous êtes sûr (P), merci d'indiquer à la **fin** de la ligne le remplacement que vous utiliseriez. Merci d'utiliser la notation de remplacement suivante: `s/<regex>/<remplacement>/<flags>` (notation inspirée de `sed`). Dans le remplacement, merci d'utiliser les références numériques avec backslash (`s/(.)/\1/`) plutôt que celles avec dollar (`s/(.)/$1/`). Par exemple:
 
 - P "Supprimer tous les caractères de chaque ligne, sauf le premier" s/(.).\*/\1/
 
@@ -83,7 +83,7 @@ Dans le cas ou vous êtes sûr (P), merci d'indiquer à la **fin** de la ligne l
 - "Supprimer les lignes qui contiennent la suite de lettres 'foo'"
 - "Dupliquer les lignes qui contiennent la suite de lettres 'gremlins'"
 - "Supprimer le mot 'faire', mais **pas** ses mots dérivés, tel que 'refaire'"
-- "Supprimer le text des ligne qui contiennent une suite de voyelle entourée par des espaces tel que ' au ', en concervant cependant la première suite de voyelle dans la ligne, mais sans conserver les espaces autour des voyelles."
+- "Supprimer le text des lignes qui contiennent une suite de voyelle entourée par des espaces tel que ' au ', en concervant cependant la première suite de voyelle dans la ligne, mais sans conserver les espaces autour des voyelles."
 - "Detecter et intervertir les assignations simples, de variable à variable, sans calcul: `a = b` devient `b = a`"
 
 ### Culture et Théorie

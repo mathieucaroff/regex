@@ -16,10 +16,12 @@
 
 <body>
   <script>
-    class MComponent extends HTMLSpanElement { }
+    class MComponent extends HTMLSpanElement {}
     customElements.define("m-", MComponent, { extends: "span" });
-    class CopyComponent extends HTMLSpanElement { }
+    class CopyComponent extends HTMLSpanElement {}
     customElements.define("copy-", CopyComponent, { extends: "span" });
+    class SComponent extends HTMLSpanElement {}
+    customElements.define("s-", SComponent, { extends: "span" });
   </script>
 
   <div class="reveal">
@@ -532,13 +534,14 @@
       </section>
       <section>
         <h2>Échapements</h2>
+        <em data-fragment-index="0"><code>/\x/</code></em>
         <table>
           <tbody>
             <tr class="fs-2">
               <td>
                 <ol>
                   <li data-fragment-index="1">Assertion de longeur nulle</li>
-                  <li data-fragment-index="2">Caractères rares</li>
+                  <li data-fragment-index="2">Caractères particuliers</li>
                   <li data-fragment-index="3">Classes de caractères Perl</li>
                   <li data-fragment-index="4">Ponctuations</li>
                   <li data-fragment-index="5">Contexte des classes de caractères</li>
@@ -569,7 +572,7 @@
       </section>
       <section>
         <h2>Échapements</h2>
-        <h4>Caractères rares</h4>
+        <h4>Caractères particuliers</h4>
         <table>
           <thead>
             <tr>
@@ -662,6 +665,14 @@
         </ul>
       </section>
 
+      <section>
+        <aside>
+          Félicitation! Vous avez désormais les connaissances suffisantes pour
+          lire et écrire des expressions régulières. En bonus, voici une feuille
+          de triche qui reprends les syntaxes présentées.
+        </aside>
+      </section>
+
       <section
         data-background-iframe="re2.syntax.short.cheatsheet.styled.html"
       ></section>
@@ -670,8 +681,48 @@
         <h1 remplacement>Remplacements</h1>
       </section>
       <section>
-        <h2><copy- from="[remplacement]" /></h2>
-        <ul class="fs-2 table-of-contents" data-unfold-content="Remplacements"></ul>
+        <h2>Remplacements</h2>
+        <h4>Notation</h4>
+        <em>(issue de Perl et Sed)</em>
+        <p><code fragment>s/&lt;recherche&gt;/&lt;remplacement&gt;/&lt;flags&gt;</code></p>
+        <p><code fragment>s/abc/def/g</code></p>
+        <aside>
+          Pour les remplacements, j'utiliserais la notation que voici. Cette notation est utilisée notemment en perl et en sed.
+        </aside>
+      </section>
+      <section>
+        <h2>Remplacements</h2>
+        <h4><code>$1</code> vs <code>\1</code></h4>
+
+        <ul>
+          <li fragment>VSCode<span fragment> → <code>$1</code></span></li>
+          <li fragment>Sed<span fragment> → <code>\1</code></span></li>
+          <li fragment>
+            Languages
+            <table>
+              <tr>
+                <td>
+                  <ul>
+                    <li fragment>Python<span fragment> → <code>\1</code></span></li>
+                    <li fragment>Ruby<span fragment> → <code>\1</code></span></li>
+                    <li fragment>JS<span fragment> → <code>$1</code></span></li>
+                    <li fragment>PHP<span fragment> → <code>$1</code></span></li>
+                    <li fragment>Perl<span fragment> → <code>$1</code> ou <code>\1</code> <small>(préférer <code>$1</code></span>)</small></li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li fragment>Java<span fragment> → <code>$1</code></span></li>
+                    <li fragment>C#<span fragment> → <code>$1</code></span></li>
+                    <li fragment>C++<span fragment> → <code>$1</code></span></li>
+                    <li fragment>Golang<span fragment> → <code>$1</code></span></li>
+                    <li fragment>Rust<span fragment> → <code>$1</code></span></li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </li>
+        </ul>
       </section>
 
       <section>
@@ -683,11 +734,11 @@
       </section>
 
       <section>
-        <h1>Les Regex hors de l'IDE</h1>
+        <h1 horsIDE>Les Regex hors de l'IDE</h1>
       </section>
       <section>
-        <h2><copy- from="[outOfIde]" /></h2>
-        <ul class="fs-2 table-of-contents" data-unfold-content="Les Regex hors de l'IDE"></ul>
+        <h2><copy- from="[horsIDE]" /></h2>
+        <ul class="fs-2 table-of-contents" data-unfold-content="Les Regexs hors de l'IDE"></ul>
       </section>
 
       <section>
@@ -703,10 +754,12 @@
         <h1>Autres ressources</h1>
       </section>
       <section>
-        <li><a href="https://regex101.com">Regex 101</a></li>
-        <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a></li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de MDN</a></li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet Regex de MDN</a></li>
+        <ul>
+          <li><a href="https://regex101.com">Regex 101</a></li>
+          <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de MDN</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet Regex de MDN</a></li>
+        </ul>
       </section>
     </div>
   </div>
@@ -758,16 +811,21 @@
     document.querySelectorAll("aside").forEach((element) => {
       element.classList.add("notes")
     })
-  </script>
-  <script src="node_modules/reveal.js-menu/menu.js"></script>
-  <script src="revealTOC.js"></script>
-  <script src="reveal.ts" type="module"></script>
-  <script>
+    let sValue = new URLSearchParams(location.search.get).get("s")
+    let groupSubstitutionCharacter = sValue === 'shell' ? '\\' : '$';
+    document.querySelectorAll("s-").forEach((s) => {
+      s.textContent = groupSubstitutionCharacter
+    });
     document.querySelectorAll("copy-").forEach((copy) => {
       copy.innerHTML = document.querySelector(
         copy.getAttribute("from")
       ).innerHTML;
     });
+  </script>
+  <script src="node_modules/reveal.js-menu/menu.js"></script>
+  <script src="revealTOC.js"></script>
+  <script src="reveal.ts" type="module"></script>
+  <script>
   </script>
 </body>
 
