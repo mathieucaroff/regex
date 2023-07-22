@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, usem-scalable=no" />
 
-  <title>Regular Expression training course</title>
+  <title>Expressions régulières</title>
 
   <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
   <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
@@ -20,8 +20,6 @@
     customElements.define("m-", MComponent, { extends: "span" });
     class CopyComponent extends HTMLSpanElement {}
     customElements.define("copy-", CopyComponent, { extends: "span" });
-    class SComponent extends HTMLSpanElement {}
-    customElements.define("s-", SComponent, { extends: "span" });
   </script>
 
   <div class="reveal">
@@ -52,8 +50,8 @@
           <li>
             Syntaxe des regexs
             <ol style="column-count: 2;">
-              <li>Alternatives</li>
               <li>Groupes</li>
+              <li>Alternatives</li>
               <li>Quantificateurs</li>
               <li>Classes de caractères</li>
               <li>Quantificateurs spécifiques</li>
@@ -61,9 +59,19 @@
               <li>Échapements</li>
             </ol>
           </li>
-          <li>Remplacements</li>
-          <li>Cas habituels</li>
+          <li>
+            Remplacements et cas habituels
+            <ol>
+              <li>Notations</li>
+              <li>Aperçu de substitution de groupe</li>
+              <li>Numérotation des groupes</li>
+              <li>Substitution de groupe</li>
+              <li>Recherches habituelles</li>
+              <li>Remplacements habituels</li>
+            </ol>
+          </li>
           <li>Exercices</li>
+          <li>Culture, théorie et moteurs de regexs</li>
           <li>
             Les Regexs hors de l'IDE
             <ul>
@@ -72,7 +80,6 @@
               <li>en Python</li>
             </ul>
           </li>
-          <li>Culture, théorie et moteurs de regexs</li>
           <li>Autres ressources</li>
         </ul>
       </section>
@@ -80,7 +87,7 @@
       <section>
         <h1>Introduction</h1>
       </section>
-      <section>
+      <section >
         <h2>Les expressions régulières c'est quoi ?</h2>
         <h2 fragment>À quoi ça sert?</h2>
         <div fragment class="decoration-right-rotated">
@@ -91,7 +98,7 @@
         </div>
         <img fragment src="img/ant-renamer-regex-substitution.png" />
         <aside>
-          Les regexs sont un outils de recherche et de remplacement de motifs
+          Les regexs sont un outil de recherche et de remplacement de motifs
           de caractères dans des données textuelles. Ces motifs sont décrits
           par un langage spécifique à un domain, ou DSL, Domain Specifique
           Language : le DSL des expressions régulières. || Les regexs peuvent
@@ -140,7 +147,7 @@
       </section>
       <section>
         <h2>Utilisation des regexs en programmation</h2>
-        <table>
+        <table style="font-size: 80%;">
           <thead>
             <tr>
               <th>Action</th>
@@ -161,7 +168,7 @@
             </tr>
             <tr>
               <td>Match simple</td>
-              <td>Match ([entier, entier, string][])</td>
+              <td>Match*</td>
               <td><code>m = "abc".match(/a(bc)/)</code></td>
             </tr>
             <tr>
@@ -170,7 +177,7 @@
               <td><code>m = "abc".match(/a(bc)/g)</code></td>
             </tr>
             <tr>
-              <td>Remplacement (simple ou global)</td>
+              <td>Remplacement**</td>
               <td>string</td>
               <td><code>m = "abc".replace(/a(bc)/g)</code></td>
             </tr>
@@ -181,6 +188,12 @@
             </tr>
           </tbody>
         </table>
+        <div fragment style="text-align: left; margin-top: 20px;">
+          <ul no-list-style style="font-size: 70%;">
+            <li>Match* → [entier, entier, string][]</li>
+            <li>Remplacement** → simple ou global</li>
+          </ul>
+        </div>
       </section>
       <section>
         <section>
@@ -234,6 +247,8 @@
         </ul>
         <aside>
           Placer un morceau d'expression régulière entre deux parenthèses crée un groupe.
+          Pour qu'une expression régulière soit valide, chaque parenthèses ouvrante
+          doit être associé à une parenthèses fermante et vice-versa.
         </aside>
       </section>
       <section>
@@ -661,7 +676,7 @@
         <em>Dans le context d'une classe de caractères <code>[x]</code></em>
         <ul>
           <li fragment>
-            Ponctuations à échapper: <span fragment><code>[]-/\</code></span>
+            Ponctuations à échapper: <span fragment><code>[]^-/\</code></span>
         </ul>
       </section>
 
@@ -678,19 +693,176 @@
       ></section>
 
       <section>
-        <h1 remplacement>Remplacements</h1>
-      </section>
-      <section>
-        <h2>Remplacements</h2>
-        <h4>Notation</h4>
-        <em>(issue de Perl et Sed)</em>
-        <p><code fragment>s/&lt;recherche&gt;/&lt;remplacement&gt;/&lt;flags&gt;</code></p>
-        <p><code fragment>s/abc/def/g</code></p>
+        <h2 replacements>Remplacements et cas habituels</h2>
+        <h4>Notations</h4>
+        <ul>
+          <li fragment><code>x</code>, <code>y</code>, <code>z</code><span fragment> → regex ou morceau de regex</span></li>
+          <li fragment><code>a</code>, <code>b</code>, ...<span fragment> → caractère</span></li>
+          <li fragment>Remplacements <em>(notations de Perl):</em>
+            <ul>
+              <li fragment><code>s/&lt;regex&gt;/&lt;remplacement&gt;/&lt;flags&gt;</code></li>
+              <li fragment><code>s/abc/def/g</code></li>
+            </ul>
+          </li>
+        </ul>
         <aside>
-          Pour les remplacements, j'utiliserais la notation que voici. Cette notation est utilisée notemment en perl et en sed.
+          Pour la suite de cette présentation, nous utiliserons les notations indiquées dans cette slide:
+          Les lettres x, y et z désigne des expressions régulières à-part-entières qui peuvent être inclueses au sein d'un plus grande expression régulière.
+          Les lettres a, b, c etc. désigne un caractère seul.
+          Pour les remplacements, nous utiliserons la notation que voici. Il s'agit de la notation avec des slashes de Perl. Cette notation est utilisée notemment en Perl et en Sed. Par exemple, le remplacement suivant remplace toutes les suites de lettre "abc" en "def".
         </aside>
       </section>
+
       <section>
+        <h2><copy- from="[replacements]" /></h2>
+        <h4>Aperçu de substitution de groupe</h4>
+        <div class="r-stack">
+          <pre fragment><code class="text">s/^deb (.*)$/</code></pre>
+          <pre fragment><code class="text">s/^deb (.*)$/deb $1\ndeb-src $1/g</code></pre>
+        </div>
+        <aside>
+          Nous avons vu précédement qu'un groupe est un morceau d'expression régulière placé entre parenthèses. Nous avons aussi vu que les groupes permettent de restreindre la portée des alternatives, et d'étendre celle des quantificateurs. (Eh bien) les groupes ont aussi un rôle dans les remplacements par expression régulières :
+          Un système de numérotation des groupes permet de réutiliser la valeur prise par un groupe dans le texte de remplacement. Voici un remplacement dans lequel le contenu d'origine est partiellement dupliqué grâce à une référence au groupe numéro 1.
+
+          Cette regex est provient du Bastion et est appliquée au fichier /etc/apt/sources.list. Elle sert à ajouter une entrée debian-source pour chaque entrée de package debian déjà présente dans le fichier.
+        </aside>
+      </section>
+
+      <section>
+        <section>
+          <h2><copy- from="[replacements]" /></h2>
+          <h4>Numérotation des groupes</h4>
+          <pre fragment>
+            <code class="text">
+            /(x)(y)(z)/
+            ^^  ^  ^
+            01  2  3
+            </code>
+          </pre>
+          <pre fragment class="text">
+            <code>
+            /((x)(y))(z)/
+            ^^^  ^   ^
+            012  3   4
+            </code>
+          </pre>
+          <aside>
+            Pour pouvoir désigner n'importe quel groupe d'une expression régulière, un système de numérotation a été mis en place. Le numéro 0 désigne la totatlité du text matché par l'expression régulière. Les numéros suivants désigne les groupes, par ordre d'apparition de leur paranthèse ouvrante.
+          </aside>
+        </section>
+        <section>
+          <h2><copy- from="[replacements]" /></h2>
+          <h4>Numérotation des groupes</h4>
+          <h5>Groupes non-capturant</h5>
+          <pre fragment>
+            <code class="text">
+            /(?:x)(y)(?:z)/;
+            ^     ^
+            0     1
+            </code>
+          </pre>
+          <div class="r-stack">
+            <pre fragment class="text">
+              <code>
+              /((?:x)(?:(y)))(z)/
+
+
+              </code>
+            </pre>
+            <pre fragment class="text">
+              <code>
+              /((?:x)(?:(y)))(z)/
+              ^^        ^    ^
+              01:xy     2:y  3:z
+              </code>
+            </pre>
+          </div>
+          <aside>
+            Il existe une syntax appelée groupe non-capturant. Cette syntax est assez peu utile. Elle permet d'avoir des groupes utilisable pour les alternatives et les quantificateurs, mais qui ne contribuent pas à la numérotation et qui ne sont donc pas accessibles dans le remplacement. Par exemple, dans la regex suivante, il n'y qu'un seul groupe, celui qui match juste "y".
+
+            Dans l'expression régulière que voici, quels sont les groupes numérotés ? combien y en a t'il ? et quels sont leur numéros respectifs ?
+          </aside>
+        </section>
+      </section>
+      <section automaticGroupSubstitutionSyntax>
+        <section>
+          <h2>Remplacements et cas habituels</h2>
+          <h4>Substitution de groupe: groupes inutilisés</h4>
+          <p><code fragment>s/((a)|b)c/0:$0. 1:$1. 2:$2. 3:$3./g</code></p>
+          <p><code fragment>"HI ac AND bc BYE"</code></p>
+          <p style='font-size: 90%;'><code fragment>"HI 0:ac. 1:a. 2:a. 3:. AND 0:bc. 1:b. 2:. 3:. BYE"</code></p>
+        </section>
+        <section>
+          <h2>Remplacements et cas habituels</h2>
+          <h4>Substitution de groupe: groupes réutilisés</h4>
+          <p><code fragment>s/[0-9](-([0-9]))*/0:$0. 1:$1. 2:$2./g</code></p>
+          <p><code fragment>"SUM: 5 END"</code></p>
+          <p><code fragment>"SUM: 0:5. 1:. 2:. END"</code></p>
+          <p><code fragment>"SUM: 9-8-7-6 END"</code></p>
+          <p><code fragment>"SUM: 0:9-8-7-6. 1:-6. 2:6. END"</code></p>
+        </section>
+      </section>
+      <section>
+        <section>
+          <h2>Remplacements et cas habituels</h2>
+          <h4>Recherches habituelles</h4>
+          <ul>
+            <li fragment><code>/\bword\b/</code></li>
+            <li fragment><code>/\n\n/</code> ou <code>/^$/</code></li>
+            <li fragment><code>/\n\n\n/</code> ou <code>/\n\n+/</code></li>
+            <li fragment><code>/^debut-de-ligne/</code></li>
+            <li fragment><code>/fin-de-ligne$/</code></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Remplacements et cas habituels</h2>
+          <h4>Recherches habituelles</h4>
+          <ul>
+            <li fragment>
+              <code>x(sx)*</code> ou <code>(xs)*x</code>
+              <ul no-list-style>
+                <li fragment><code>(\w+m)*\w+</code> ou <code>\w+(,\w+)*</code></li>
+                <li fragment>lion,tiger,gnu,penguin</li>
+              </ul>
+            </li>
+            <li fragment>Trouver deux caractères distants:
+              <ul>
+                <li fragment><code>/a[^b]*b/</code> ou <code>/a.*b/</code></li>
+              </ul>
+            </li>
+            <li fragment>Trouver une chaine de caractères simple:
+              <ul>
+                <li fragment><code>/"[^"]*"/</code></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <section automaticGroupSubstitutionSyntax>
+        <h2>Remplacements et cas habituels</h2>
+        <h4>Remplacements habituels</h4>
+        <ul style="column-count: 2;">
+          <li fragment>Supprimer un motif:
+            <ul>
+              <li fragment><code>s/x//g</code></li>
+              <li fragment><code>s/(x)y(z)/$1$2/g</code></li>
+              <li fragment><code>s/.*(x)/$1/g</code></li>
+              <li fragment><code>s/(x).*/$1/g</code></li>
+            </ul>
+          </li>
+          <li fragment>Supprimer les lignes vides multiples:
+            <ul>
+              <li fragment><code>s/\n\n\n+/\n\n/g</code></li>
+            </ul>
+          </li>
+          <li fragment>Doubler un motif:
+            <ul>
+              <li fragment><code>s/a(x)b/a$1$1b/g</code></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section innerHTML="$1 vs \1">
         <h2>Remplacements</h2>
         <h4><code>$1</code> vs <code>\1</code></h4>
 
@@ -706,15 +878,14 @@
                     <li fragment>Python<span fragment> → <code>\1</code></span></li>
                     <li fragment>Ruby<span fragment> → <code>\1</code></span></li>
                     <li fragment>JS<span fragment> → <code>$1</code></span></li>
-                    <li fragment>PHP<span fragment> → <code>$1</code></span></li>
                     <li fragment>Perl<span fragment> → <code>$1</code> ou <code>\1</code> <small>(préférer <code>$1</code></span>)</small></li>
+                    <li fragment>PHP<span fragment> → <code>$1</code> ou <code>\1</code> <small>(préférer <code>$1</code></span>)</small></li>
                   </ul>
                 </td>
                 <td>
                   <ul>
                     <li fragment>Java<span fragment> → <code>$1</code></span></li>
                     <li fragment>C#<span fragment> → <code>$1</code></span></li>
-                    <li fragment>C++<span fragment> → <code>$1</code></span></li>
                     <li fragment>Golang<span fragment> → <code>$1</code></span></li>
                     <li fragment>Rust<span fragment> → <code>$1</code></span></li>
                   </ul>
@@ -723,14 +894,17 @@
             </table>
           </li>
         </ul>
-      </section>
-
-      <section>
-        <h1>Cas habituels</h1>
+        <aside>
+          Delphi, R, and Tcl use the `\n` syntax for regex replacement. (source: www.regular-expressions.info)
+        </aside>
       </section>
 
       <section>
         <h1>Exercices</h1>
+      </section>
+
+      <section>
+        <h1 culture>Culture, théorie et moteurs de regexs</h1>
       </section>
 
       <section>
@@ -742,7 +916,69 @@
       </section>
 
       <section>
-        <h1 culture>Culture, théorie et moteurs de regexs</h1>
+        <h1 commandLine>Les Regexs en ligne de commande</h1>
+      </section>
+      <section>
+        <h2><copy- from="[commandLine]" /></h2>
+        <h4>L'outil grep</h4>
+        <ul>
+          <li fragment><code>grep -E '&lt;regex>'</code> (<code>grep -r</code>)</li>
+          <li fragment><code>grep -Eo</code></li>
+          <li fragment><code>grep -Eo</code></li>
+        </ul>
+      </section>
+      <section>
+        <h2><copy- from="[commandLine]" /></h2>
+        <h4>L'outil grep</h4>
+      </section>
+      <section>
+        <h2><copy- from="[commandLine]" /></h2>
+        <h4>L'outil sed</h4>
+      </section>
+      <section>
+        <h2><copy- from="[commandLine]" /></h2>
+        <h4>L'outil sed</h4>
+      </section>
+      <section>
+        <h2><copy- from="[commandLine]" /></h2>
+        <em>(Récapitulatif)</em>
+        <table style="font-size: 60%;" fragment>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Sortie</th>
+              <th>Exemple en Bash</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Test</td>
+              <td style="font-size: 75%;">code de sortie</td>
+              <td><code>grep -E 'x' >/dev/null && ...</code></td>
+            </tr>
+            <tr>
+              <td>Recherche</td>
+              <td style="font-size: 75%;">numéro de ligne</td>
+              <td><code>grep -En 'x'</code> ou <code style="margin-left: 4px;">nl | grep 'x'</code></td>
+            </tr>
+            <tr>
+              <td>Remplacement<br>ligne par ligne</td>
+              <td>text</td>
+              <td><code>sed 's/regex(p?)/RegEx\1/g'</code></td>
+            </tr>
+            <tr>
+              <td>Remplacement<br>multiligne</td>
+              <td>text</td>
+              <td><code>tr '\n' ~ | sed 's/~~~+/~~/g | tr '~' \n'</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <div fragment style="text-align: left; margin-top: 20px;">
+          <ul no-list-style style="font-size: 70%;">
+            <li>Match* → [entier, entier, string][]</li>
+            <li>Remplacement** → simple ou global</li>
+          </ul>
+        </div>
       </section>
 
       <section>
@@ -756,6 +992,9 @@
       <section>
         <ul>
           <li><a href="https://regex101.com">Regex 101</a></li>
+          <li><a href="https://www.regular-expressions.info">regular-expression.info</a></li>
+          <li><a href="https://regexr.com/">RegexR (open-source!)</a></li>
+          <li><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_regular_expressions">Guide des Regex Powershell</li>
           <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a></li>
           <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de MDN</a></li>
           <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet Regex de MDN</a></li>
@@ -771,6 +1010,11 @@
 
     [padding] {
       padding-top: 50px;
+    }
+
+    [innerHTML] {
+      color: #808080;
+      font-size: 20px;
     }
 
     img[alt="regex-example"] {
@@ -811,11 +1055,16 @@
     document.querySelectorAll("aside").forEach((element) => {
       element.classList.add("notes")
     })
-    let sValue = new URLSearchParams(location.search.get).get("s")
-    let groupSubstitutionCharacter = sValue === 'shell' ? '\\' : '$';
-    document.querySelectorAll("s-").forEach((s) => {
-      s.textContent = groupSubstitutionCharacter
-    });
+    document.querySelectorAll("[innerHTML]").forEach((element) => {
+      element.innerHTML = element.getAttribute("innerHTML")
+    })
+
+    let sValue = new URLSearchParams(location.search).get("s")
+    if (sValue === 'shell') {
+      document.querySelectorAll("[automaticGroupSubstitutionSyntax]").forEach((s) => {
+        s.innerHTML = s.innerHTML.replace(/\$(\d)/g, `\\$1`)
+      });
+    }
     document.querySelectorAll("copy-").forEach((copy) => {
       copy.innerHTML = document.querySelector(
         copy.getAttribute("from")
@@ -823,7 +1072,7 @@
     });
   </script>
   <script src="node_modules/reveal.js-menu/menu.js"></script>
-  <script src="revealTOC.js"></script>
+  <script src="revealTOC.ts" type="module"></script>
   <script src="reveal.ts" type="module"></script>
   <script>
   </script>

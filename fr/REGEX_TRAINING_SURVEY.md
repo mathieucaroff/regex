@@ -12,7 +12,7 @@ Merci d'indiquer la lettre (U / V / P) en début de ligne, après le tiret. Par 
 
 - P `/./`
 
-Les lettres `x` et `y` symbolisent un morceau d'expression régulière. Les lettres `a`, `b` et `c` symbolisent des caractères unique (non-spéciaux).
+Les lettres `x` et `y` symbolisent un morceau d'expression régulière. Les lettres `a`, `b` et `c` symbolisent des caractères uniques et non-spéciaux.
 
 - `/./`
 - `/x?/`
