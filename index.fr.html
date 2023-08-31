@@ -55,6 +55,7 @@
               <li>Quantificateurs</li>
               <li>Classes de caractères</li>
               <li>Quantificateurs spécifiques</li>
+              <li>Quantificateurs paresseux</li>
               <li>Ancres</li>
               <li>Échapements</li>
             </ol>
@@ -427,60 +428,102 @@
         </ul>
       </section>
       <section>
-        <h2 qs>Quantificateurs spécifiques</h2>
-        <em>Répétitions de motifs</em>
-        <table>
-          <thead>
-            <tr>
-              <th>Syntaxe</th>
-              <th>Exemples</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr fragment>
-              <td><code>/ab{4}/</code></td>
-              <td fragment>abbbb</td>
-            </tr>
-            <tr fragment>
-              <td><code>/ab{2,4}/</code></td>
-              <td fragment>abb, abbb, abbbb</td>
-            </tr>
-            <tr fragment>
-              <td><code>/ab{2,}/</code></td>
-              <td fragment>abb, abbb, abbbb, abbbbb...</td>
-            </tr>
-          </tbody>
-        </table>
+        <section>
+          <h2 qs>Quantificateurs spécifiques</h2>
+          <em>Répétitions de motifs</em>
+          <table>
+            <thead>
+              <tr>
+                <th>Syntaxe</th>
+                <th>Exemples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr fragment>
+                <td><code>/ab{4}/</code></td>
+                <td fragment>abbbb</td>
+              </tr>
+              <tr fragment>
+                <td><code>/ab{2,4}/</code></td>
+                <td fragment>abb, abbb, abbbb</td>
+              </tr>
+              <tr fragment>
+                <td><code>/ab{2,}/</code></td>
+                <td fragment>abb, abbb, abbbb, abbbbb...</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2><copy- from="[qs]" /></h2>
+          <em>Répétitions de motifs</em>
+          <table>
+            <thead>
+              <tr>
+                <th>Syntaxe</th>
+                <th>Description</th>
+                <th>Équivalent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-fragment-index="1"><code>/x*/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Autant de fois que possible"</td>
+                <td fragment><code>/x{0,}/</code></td>
+              </tr>
+              <tr>
+                <td data-fragment-index="1"><code>/x+/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Au moins une fois"</td>
+                <td fragment><code>/x{1,}/</code></td>
+              </tr>
+              <tr>
+                <td data-fragment-index="1"><code>/x?/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Zero ou une fois"</td>
+                <td fragment><code>/x{0,1}/</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
       </section>
       <section>
-        <h2><copy- from="[qs]" /></h2>
-        <em>Répétitions de motifs</em>
-        <table>
-          <thead>
-            <tr>
-              <th>Syntaxe</th>
-              <th>Description</th>
-              <th>Équivalent</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-fragment-index="1"><code>/x*/</code></td>
-              <td data-fragment-index="2" class="fs-2">"Autant de fois que possible"</td>
-              <td fragment><code>/x{0,}/</code></td>
-            </tr>
-            <tr>
-              <td data-fragment-index="1"><code>/x+/</code></td>
-              <td data-fragment-index="2" class="fs-2">"Au moins une fois"</td>
-              <td fragment><code>/x{1,}/</code></td>
-            </tr>
-            <tr>
-              <td data-fragment-index="1"><code>/x?/</code></td>
-              <td data-fragment-index="2" class="fs-2">"Zero ou une fois"</td>
-              <td fragment><code>/x{0,1}/</code></td>
-            </tr>
-          </tbody>
-        </table>
+        <section>
+          <h2 qp>Quantificateurs paresseux</h2>
+          <em>Répétitions de motifs</em>
+          <table>
+            <thead>
+              <tr>
+                <th>Syntaxe</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-fragment-index="1"><code>/x*?/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Autant de fois que nécessaire"</td>
+              </tr>
+              <tr>
+                <td data-fragment-index="1"><code>/x+/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Au moins une fois et autant que nécessaire"</td>
+              </tr>
+              <tr>
+                <td data-fragment-index="1"><code>/x??/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Zero ou une fois et de préférence zéro"</td>
+              </tr>
+              <tr>
+                <td data-fragment-index="1"><code>/x{1,3}?/</code></td>
+                <td data-fragment-index="2" class="fs-2">"Entre une et trois fois et de préférence le moins possible"</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Quantificateurs paresseux vs avides</h2>
+          <ul>
+            <li fragment>"blablebli", <code>/(bl[aeiou])*/</code> -> "blablebli"</li>
+            <li fragment>"blablebli", <code>/(bl[aeiou])*?/</code> -> "bla"</li>
+            <li fragment>"blablebli!", <code>/(bl[aeiou])*?!/</code> -> "blablebli!"</li>
+          </ul>
+        </section>
       </section>
       <section>
         <h2>Échapements</h2>
@@ -603,7 +646,7 @@
       </section>
       <section>
         <h2>Échapements</h2>
-        <h4>Délimitations de mots</h4>
+        <h4>Délimitations de mot</h4>
         <em>Assertion de longeur nulle</em>
         <ul>
           <li fragment>
