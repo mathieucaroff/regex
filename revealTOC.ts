@@ -28,8 +28,8 @@ function init() {
         element.style.fontWeight = "bold"
         point.appendChild(element)
       } else {
-        const entryCopy = document.createElement(entry.tagName)
-        entryCopy.append(document.createTextNode(entryTitle))
+        const entryCopy = entry.cloneNode(false)
+        entryCopy.appendChild(document.createTextNode(entryTitle))
         point.appendChild(entryCopy)
       }
     })
