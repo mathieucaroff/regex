@@ -70,16 +70,16 @@
               <li>Remplacements habituels</li>
             </ol>
           </li>
-          <li>Exercices</li>
-          <li>Culture, théorie et moteurs de regexs</li>
           <li>
             Les Regexs hors de l'IDE
             <ul>
-              <li>en ligne de commande</li>
               <li>en JS</li>
-              <li>en Python</li>
+              <li stroke>en Python</li>
+              <li>en ligne de commande</li>
             </ul>
           </li>
+          <li stroke>Exercices</li>
+          <li stroke>Culture, théorie et moteurs de regexs</li>
           <li>Autres ressources</li>
         </ul>
       </section>
@@ -103,12 +103,10 @@
           par un langage spécifique à un domain, ou DSL, Domain Specifique
           Language : le DSL des expressions régulières. || Les regexs peuvent
           servir à toutes sorte de choses. Par exemple: || Trouver des données
-          spécifiques dans les logs grâce à des motifs plus complexe que la
-          recherche lettre pour lettre. || Faire des statistiques sur l'utilisation
-          de fonctions dans le code.|| La recherche de fichiers par nom. Le renommage
-          de plusieurs variables simultanement. || Le rennomage de fichier. Valider
-          qu'un email ou un numéro de téléphone entré par l'utilisateur ne comporte
-          pas d'erreur de format.
+          spécifiques dans les logs. || Faire des statistiques. || Chercheo des
+          fichiers par leur nom. || Renommer plusieurs variables simultanement.
+          || Rennomer des fichiers. || Valider des que données textuelles
+          entrées par un utilisateur sont bien conformes à un format spécifique.
         </aside>
       </section>
       <section>
@@ -116,6 +114,7 @@
         <a href="https://regex101.com/?regex=^ *(\+33|0)( ?[0-9]){7} *$"><code>/^ *(\+33|0)( ?[0-9]){7} *$/</code></a>
         <aside>
           Voici une expression régulière qui match uniquement les numéros de téléphone.
+          Notez que dans cette présentation, toutes les expressions régulières sont délimitées par le caractère slash. Cette notation provient des langages de scriptage qui ont popularisé les expressions régulières.
         </aside>
       </section>
       <section>
@@ -145,7 +144,7 @@
           </aside>
         </section>
       </section>
-      <section>
+      <section utilisation-en-programmation>
         <h2>Utilisation des regexs en programmation</h2>
         <table style="font-size: 80%;">
           <thead>
@@ -164,22 +163,22 @@
             <tr>
               <td>Recherche</td>
               <td>entier</td>
-              <td><code>c = "abc".search(/a(bc)/)</code></td>
+              <td><code>k = "abc".search(/a(bc)/)</code></td>
             </tr>
             <tr>
               <td>Match simple</td>
-              <td>Match*</td>
+              <td>string[]</td>
               <td><code>m = "abc".match(/a(bc)/)</code></td>
             </tr>
             <tr>
               <td>Match global</td>
-              <td>Match[]</td>
+              <td>string[]</td>
               <td><code>m = "abc".match(/a(bc)/g)</code></td>
             </tr>
             <tr>
-              <td>Remplacement**</td>
+              <td>Remplacement*</td>
               <td>string</td>
-              <td><code>m = "abc".replace(/a(bc)/g)</code></td>
+              <td><code>m = "abc".replace(/a(bc)/g, "")</code></td>
             </tr>
             <tr>
               <td>Séparation</td>
@@ -188,10 +187,10 @@
             </tr>
           </tbody>
         </table>
-        <div fragment style="text-align: left; margin-top: 20px;">
+        <div style="text-align: left; margin-top: 20px;">
           <ul no-list-style style="font-size: 70%;">
-            <li>Match* → [entier, entier, string][]</li>
-            <li>Remplacement** → simple ou global</li>
+            <li fragment>Remplacement* → simple ou global</li>
+            <li fragment>Remplacement* → motif ou callback</li>
           </ul>
         </div>
       </section>
@@ -345,6 +344,7 @@
               "être content" et "être très content" et "être très très content"
               <ul fragment>
                 <li><code>/être (très )*content/</code></li>
+                <li fragment><code>/être( très)* content/</code></li>
               </ul>
             </li>
           </ul>
@@ -809,7 +809,7 @@
           <ul>
             <li fragment><code>/\bword\b/</code></li>
             <li fragment><code>/\n\n/</code> ou <code>/^$/</code></li>
-            <li fragment><code>/\n\n\n/</code> ou <code>/\n\n+/</code></li>
+            <li fragment><code>/\n\n\n/</code> ou <code>/\n\n\n+/</code></li>
             <li fragment><code>/^debut-de-ligne/</code></li>
             <li fragment><code>/fin-de-ligne$/</code></li>
           </ul>
@@ -900,19 +900,15 @@
       </section>
 
       <section>
-        <h1>Exercices</h1>
-      </section>
-
-      <section>
-        <h1 culture>Culture, théorie et moteurs de regexs</h1>
-      </section>
-
-      <section>
         <h1 horsIDE>Les Regex hors de l'IDE</h1>
       </section>
       <section>
         <h2><copy- from="[horsIDE]" /></h2>
         <ul class="fs-2 table-of-contents" data-unfold-content="Les Regexs hors de l'IDE"></ul>
+      </section>
+
+      <section>
+        <copy- from="[utilisation-en-programmation]" />
       </section>
 
       <section>
@@ -923,13 +919,19 @@
         <h4>L'outil grep</h4>
         <ul>
           <li fragment><code>grep -E '&lt;regex>'</code> (<code>grep -r</code>)</li>
-          <li fragment><code>grep -Eo</code></li>
-          <li fragment><code>grep -Eo</code></li>
+          <li fragment><code>grep -Eo</code><span fragment> → --<code>o</code>nly-matching"</span></li>
+          <li fragment><code>grep -Ev</code><span fragment> → --in<code>v</code>ert-match"</span></li>
+          <li fragment><code>grep -Ei</code><span fragment> → --<code>i</code>gnore-case"</span></li>
         </ul>
       </section>
       <section>
         <h2><copy- from="[commandLine]" /></h2>
         <h4>L'outil grep</h4>
+        <ul>
+          <li fragment>search for a file by regex
+            <ul><li fragment><code>grep -lR . | grep -E '&lt;filepath-regex>'</code></li></ul>
+          </li>
+        </ul>
       </section>
       <section>
         <h2><copy- from="[commandLine]" /></h2>
@@ -982,6 +984,14 @@
       </section>
 
       <section>
+        <h1 exercices>Exercices</h1>
+      </section>
+
+      <section>
+        <h1 culture>Culture, théorie et moteurs de regexs</h1>
+      </section>
+
+      <section>
         <h2><copy- from="[culture]" /></h2>
         <ul class="fs-2 table-of-contents" data-unfold-content="Culture, théorie et moteurs de regexs"></ul>
       </section>
@@ -1015,6 +1025,10 @@
     [innerHTML] {
       color: #808080;
       font-size: 20px;
+    }
+
+    [stroke] {
+      text-decoration: line-through;
     }
 
     img[alt="regex-example"] {
