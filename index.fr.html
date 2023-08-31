@@ -327,72 +327,29 @@
               <code fragment>/https?:/</code>
             </li>
             <li fragment>
-              "regex" et "regexp"
-              <code fragment>/regexp?/</code>
-            </li>
-            <li fragment>
-              "wow" et "wowwww"
-              <code fragment>/wow+/</code>
-            </li>
-            <li fragment>
-              "être prêt", "être bientôt prêt"
-              <ul fragment>
-                <li><code>/être (bientôt )?prêt/</code></li>
-              </ul>
-            </li>
-            <li fragment>
               "être content" et "être très content" et "être très très content"
               <ul fragment>
                 <li><code>/être (très )*content/</code></li>
                 <li fragment><code>/être( très)* content/</code></li>
               </ul>
             </li>
+            <li fragment>
+              <code fragment>/(bonjour_|salut_)*/</code>
+              <ul fragment>
+                <li></li>
+                <li fragment><code>/être( très)* content/</code></li>
+              </ul>
+            </li>
           </ul>
+          <aside>
+            Je voudrais attirer votre attention sur le cas d'une expression régulière complexe placée à l'interieur d'un groupe qui peut être répété.
+            Lorsque cela se produit, le moteur d'expression régulières se réfèrera toujours à l'expression régulière source pour matcher les occurences successives du groupe.
+            Ainsi, le motif présenté est bien matché en entier par l'expression régulière.
+          </aside>
         </section>
         <section>
           <h2>Quantificateurs</h2>
-          <h4>Question de la répétition de groupe complexe</h4>
-          <table>
-            <thead>
-              <th><code>/(ab+, )*/</code></th>
-              <th style="text-align: right;" data-fragment-index="1">A &nbsp;</th>
-              <th style="text-align: right;" data-fragment-index="2">B &nbsp;</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <ol data-fragment-index="0">
-                    <li>ab, ab, ab, </li>
-                    <li>abb, abb, abb, </li>
-                    <li>abbb, abbb, abbb, </li>
-                    <li>ab, abbbb, </li>
-                    <li>abb, ab, </li>
-                    <li>abbbbbb, abb, </li>
-                  </ol>
-                </td>
-                <td>
-                  <ul data-fragment-index="1" no-list-style>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>❌</li>
-                    <li>❌</li>
-                    <li>❌</li>
-                  </ul>
-                </td>
-                <td>
-                  <ul data-fragment-index="2" no-list-style>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>✅</li>
-                    <li>✅</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <h4>Répétition de groupes complexes</h4>
         </section>
       </section>
       <section>
