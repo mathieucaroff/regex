@@ -78,8 +78,14 @@
               <li>en ligne de commande</li>
             </ul>
           </li>
-          <li stroke>Exercices</li>
-          <li stroke>Culture, théorie et moteurs de regexs</li>
+          <li>
+            Culture, théorie et moteurs de regexs
+            <ul>
+              <li>Panne du réseau Cloudflare</li>
+              <li>Risque de ReDoS: Denial of Service by Regex</li>
+              <li>Moteurs de regexs avec ou sans backtracking</li>
+            </ul>
+          </li>
           <li>Autres ressources</li>
         </ul>
       </section>
@@ -403,6 +409,12 @@
             <code fragment>/[A-Za-z_][A-Za-z_0-9]*/</code>
           </li>
         </ul>
+        <aside>
+          ASCII:
+          - A->65, Z->90
+          - a->97, z->122
+          - 0->48, 9->57
+        </aside>
       </section>
       <section>
         <h2><copy- from="[classes]" /></h2>
@@ -471,96 +483,6 @@
         </table>
       </section>
       <section>
-        <h2>Ancres</h2>
-        <em>Assertions de longeur nulle</em>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <ol>
-                  <li data-fragment-index="1">Le carret: <code>/^/</code></li>
-                  <li data-fragment-index="2">Le dollard: <code>/$/</code></li>
-                </ol>
-              </td>
-              <td>
-                <ul no-list-style>
-                  <li data-fragment-index="3"> → Début de ligne</li>
-                  <li data-fragment-index="4"> → Fin de ligne</li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section>
-        <h2>Échapements</h2>
-        <em data-fragment-index="0"><code>/\x/</code></em>
-        <table>
-          <tbody>
-            <tr class="fs-2">
-              <td>
-                <ol>
-                  <li data-fragment-index="1">Assertion de longeur nulle</li>
-                  <li data-fragment-index="2">Caractères particuliers</li>
-                  <li data-fragment-index="3">Classes de caractères Perl</li>
-                  <li data-fragment-index="4">Ponctuations</li>
-                  <li data-fragment-index="5">Contexte des classes de caractères</li>
-                </ol>
-              </td>
-              <td>
-                <ul no-list-style>
-                  <li data-fragment-index="6">→ <code>\b, \B, ...</code></li>
-                  <li data-fragment-index="7">→ <code>\n, \t, \r, ...</code></li>
-                  <li data-fragment-index="8">→ <code>\d, \w, \s, ...</code></li>
-                  <li data-fragment-index="9">→ <code>\+, \$, \\, ...</code></li>
-                  <li data-fragment-index="10">→ <code>[\x], [^\x]</code></li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section>
-        <h2>Échapements</h2>
-        <h4>Assertion de longeur nulle</h4>
-        <ul>
-          <li fragment>
-            L'anti-slash "b": <code>/\b/</code>
-            <ul><li fragment>Début ou fin d'un mot ASCII</li></ul>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Échapements</h2>
-        <h4>Caractères particuliers</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Syntaxe</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>/\n/</code></td>
-              <td class="fs-2">Retour à la ligne (LF: Line Feed)</td>
-            </tr>
-            <tr>
-              <td><code>/\t/</code></td>
-              <td class="fs-2">Tabulation</td>
-            </tr>
-            <tr>
-              <td><code>/\r/</code></td>
-              <td class="fs-2">Retour chariot (CR: Carriage Return)</td>
-            </tr>
-            <tr>
-              <td><code>/\r\n/</code></td>
-              <td class="fs-2">"CRLF": Carriage Return Line Feed</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section>
         <h2>Échapements</h2>
         <h4>Classe de caractères Perl</h4>
         <table>
@@ -596,6 +518,135 @@
         </table>
       </section>
       <section>
+        <section>
+          <h2>Ancres</h2>
+          <table data-fragment-index="1">
+            <tbody>
+              <tr><td colspan="2" align="center"><em>Dans l'IDE</em></td></tr>
+              <tr>
+                <td>
+                  <ol>
+                    <li>Le carret: <code>/^/</code></li>
+                    <li data-fragment-index="2">Le dollard: <code>/$/</code></li>
+                  </ol>
+                </td>
+                <td>
+                  <ul no-list-style>
+                    <li data-fragment-index="3"> → Début de ligne</li>
+                    <li data-fragment-index="4"> → Fin de ligne</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Ancres</h2>
+          <table style="font-size: smaller;">
+            <tbody>
+              <tr><td colspan="2" align="center"><em>En programmation</em></td></tr>
+              <tr>
+                <td>
+                  <ol>
+                    <li>Le carret: <code>/^/</code></li>
+                    <li>Le dollard: <code>/$/</code></li>
+                  </ol>
+                </td>
+                <td>
+                  <ul no-list-style>
+                    <li> → Début de chaine de caractères</li>
+                    <li> → Fin de chaîne de caractères</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Ancres</h2>
+          <h4>Exemples</h4>
+          <ul>
+            <li fragment><code>/const|let|var|function/</code></li>
+            <li fragment><code>/^(const|let|var|function)/</code>
+              <ul><li fragment><code>/^const|^let|^var|^function/</code></li></ul>
+            </li>
+            <li fragment><code>/^(~regex de validation~)$/</code></li>
+          </ul>
+        </section>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <em data-fragment-index="0"><code>/\x/</code></em>
+        <table>
+          <tbody>
+            <tr class="fs-2">
+              <td data-fragment-index="1">
+                <ol>
+                  <li>Classes de caractères Perl</li>
+                  <li>Délimitations de mots</li>
+                  <li>Caractères particuliers</li>
+                  <li>Metacaractères<ul><li>Cas des classes de caractères</li></ul></li>
+                </ol>
+              </td>
+              <td>
+                <ul no-list-style>
+                  <li data-fragment-index="2">→ <code>\d, \w, \s, ...</code></li>
+                  <li data-fragment-index="3">→ <code>\b, \B, ...</code></li>
+                  <li data-fragment-index="4">→ <code>\n, \t, \r, ...</code></li>
+                  <li data-fragment-index="5">→ <code>\+, \$, \\, ...</code></li>
+                  <li data-fragment-index="6">→ <code>[\x], [^\x]</code></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Délimitations de mots</h4>
+        <em>Assertion de longeur nulle</em>
+        <ul>
+          <li fragment>
+            L'anti-slash "b": <code>/\b/</code>
+            <ul no-list-style>
+              <li fragment>Début ou fin d'un "mot ASCII"</li>
+              <li fragment>(<code>/\w+/</code><span> i.e. <code>/[A-Za-z_0-9]+/</code></span>)</li>
+            </ul>
+          </li>
+        </ul>
+        <img fragment src="img/word-boundary.png" alt="word boudary example 'Hello, JS!'"/>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Caractères particuliers</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Syntaxe</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/\n/</code></td>
+              <td class="fs-2">Retour à la ligne (LF: Line Feed)</td>
+            </tr>
+            <tr>
+              <td><code>/\t/</code></td>
+              <td class="fs-2">Tabulation</td>
+            </tr>
+            <tr>
+              <td><code>/\r/</code></td>
+              <td class="fs-2">Retour chariot (CR: Carriage Return)</td>
+            </tr>
+            <tr>
+              <td><code>/\r\n/</code></td>
+              <td class="fs-2">"CRLF": Carriage Return Line Feed</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
         <h2>Échapements</h2>
         <h4>Ponctuations (31)</h4>
         <em>Dans le context générale</em>
@@ -607,10 +658,9 @@
             </ul>
           </li>
           <li fragment>
-            Ponctuations à échapper (14):
+            Metacaractères, à échapper (14):
             <ul>
               <li><code>$^*()+[]{}.?/\</code></li>
-              <li fragment><code>\$\^\*\(\)\+\[\]\{\}\.\?\/\\</code></li>
             </ul>
           </li>
         </ul>
@@ -621,8 +671,15 @@
         <em>Dans le context d'une classe de caractères <code>[x]</code></em>
         <ul>
           <li fragment>
-            Ponctuations à échapper: <span fragment><code>[]^-/\</code></span>
+            Metacaractères à échapper: <span fragment><code>[]^-/\</code></span>
+          </li>
         </ul>
+      </section>
+      <section>
+        <h2>Échapements</h2>
+        <h4>Ponctuations - Exemple</h4>
+        <p fragment><code>/\$\*\(\)\+\{\}\.\?/</code></p>
+        <p fragment><code>/[$][*][(][)][+][{][}][.][?]/</code></p>
       </section>
 
       <section>
@@ -840,7 +897,7 @@
           </li>
         </ul>
         <aside>
-          Delphi, R, and Tcl use the `\n` syntax for regex replacement. (source: www.regular-expressions.info)
+          Delphi, R, and Tcl use the `\1` syntax for regex replacement. (source: www.regular-expressions.info)
         </aside>
       </section>
 
@@ -926,10 +983,6 @@
             <li>Remplacement** → simple ou global</li>
           </ul>
         </div>
-      </section>
-
-      <section>
-        <h1 exercices>Exercices</h1>
       </section>
 
       <section>
