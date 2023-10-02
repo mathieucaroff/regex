@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, usem-scalable=no" />
+
+  <title>Expressions régulières</title>
+
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css" />
+  <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <script>
+    class MComponent extends HTMLSpanElement {}
+    customElements.define("m-", MComponent, { extends: "span" });
+    class CopyComponent extends HTMLSpanElement {}
+    customElements.define("copy-", CopyComponent, { extends: "span" });
+  </script>
+
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h3>Expressions régulières</h3><h1>deck d'exercices</h1>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function crel(name, properties = {}, children = []) {
+      let element = document.createElement(name)
+      Object.entries(properties).forEach(([key, value]) => {
+        if (key in element) {
+          element[key] = value
+        } else {
+          element.setAttribute(key, value)
+        }
+      })
+      for (let child of children) {
+        element.appendChild(child)
+      }
+      return element
+    }
+    function url(template,...inputArray) {
+      return template.map((v, k) => v + encodeURIComponent(inputArray[k] ?? "")).join('')
+    }
+    function content(param) {
+      let template = param.shift()
+      return template.map((v, k) => v + (param[k] ?? "")).join('')
+    }
+    function insertSlide(...slideArray) {
+      let slideDiv = document.querySelector(".slides")
+      slideArray.forEach(slide => {
+        slideDiv.appendChild(slide)
+      })
+    }
+    function makeSlide(title, ...linkArray) {
+      return crel("section", {}, [
+        crel("h3", { textContent: title }),
+        crel("ol", {}, linkArray.map(a => crel("li", {}, [a])))
+      ])
+    }
+    /**
+     * Basic exercise template anchor link generator
+     *
+     * Usage:
+     *   basicExercise`{exerciseTitle}
+     *   {regex}
+     *   {statement}
+     *   ``
+     *   {matching}
+     *   ``
+     *   {non-matching}
+     *   `
+     */
+    let basicExercise = (...a) => (...b) => (...c) => (...d) => {
+      let [exerciseTitle, regex, ...statementArray] = content(a).split("\n")
+      let rawStatement = statementArray.join("\n")
+      let statement = rawStatement.trim().replace(/\n/g, '\n# ')
+      let solution = content(d).trim().split("\n")[0]
+      if (location.search.includes("solution")) {
+        regex = solution
+      }
+      let matching = content(b)
+      let nonMatching = content(c).trimEnd()
+      let text = `# ${exerciseTitle}
+#
+# ${statement}
+${matching}${nonMatching}`
+      let href = url`https://regex101.com/?regex=${regex}&testString=${text}&flags=gm`
+      return crel("a", { textContent: exerciseTitle, href })
+    }
+insertSlide(
+makeSlide(
+"Exemples d'exercices",
+basicExercise`Lettres litérales
+
+Matcher toute ligne qui contient la lettre "e"
+``
+valeur
+penser
+développeur
+exemple
+autre
+``
+chat
+lapin
+maison
+savoir
+suffir
+``^.*e.*$`,
+basicExercise`Lettres litérales
+
+Matcher toute ligne composée uniquement de chiffres
+``
+00
+123
+``
+0 1 2 3
+ 123
+456 
+OIZEASGIBg
+``^\\d*$`,
+),
+makeSlide(
+"Exercices de validation",
+basicExercise`Valider un numéro de téléphone
+
+Matcher toute suite de exactement 10 chiffres
+``
+1234567890
+0102030405
+9000000000
+``
+123456789
+01234567890
+abcdefghij
++-==-+==+-
+``
+^[0-9]{10}$
+^\\d{10}$
+`,
+basicExercise`Valider une couleur au format hexadecimal
+
+Matcher un hashsigne suivi de 6 chiffres hexadécimaux
+``
+#FFA500
+#123456
+#ABCDEF
+``
+FFA500
+#FFA5
+#FFA50011
+00#FFA500
+#GHIJKL
+#123
+``^#[0-9A-F]{6}$`,
+basicExercise`Valider une date au format ISO8601
+
+Matcher toute date au format AAAA-MM-JJ.
+
+- Vous n'avez pas besoin de valider que les mois de l'année sont compris entre 1 et 12. De même pour le jour, pas besoin de valider qu'il est compris entre 1 et 31.
+- Rejetez les entrées qui omettent les 0 à gauche telles que 2023-9-1 ou même 999-01-01
+- Rejetez les entrées dont l'année est supérieur à 9999
+- Rejetez les dates dont l'année est inférieure à 0 (i.e. année négative)
+``
+2023-09-28
+3202-09-01
+9999-09-02
+0999-09-03
+0000-01-01
+``
+abcd
+0
+0-0-0
+1-1-1
+2023-9-1
+999-01-01
+-0001-12-31
+``
+^[0-9]{4}-[0-9]{2}-[0-9]{2}$
+^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$
+^\\d\\d\\d\\d-\\d\\d-\\d\\d$
+^\\d{4}-\\d{2}-\\d{2}$
+^\\d{4}(-\\d{2}){2}$
+`,
+),
+makeSlide(
+"Exercices de remplacement",
+replacementExercise`Transformer un text
+
+Remplacer tout les mots qui commencent par "un" par "re". Ne faite pas le
+remplacement lorsque le motif apparait au milieu ou en fin de mot.
+``
+undo, unite, and uncover the truth.
+redo, reite, and recover the truth.
+
+His fund of knowledge about the universe is stunning.
+His fund of knowledge about the reiverse is stunning.
+``/\\bun/re/g`,
+replacementExercise`Masquer les années
+
+Remplacer toutes les suites de exactement quatre chiffres par "####"
+``
+In 2020, we started a new project. By 2022, it was completed.
+In ####, we started a new project. By ####, it was completed.
+``/\\b[0-9]{4}\\b/####/g`,
+),
+makeSlide(
+"Exercices de remplacement utilisant les groupes",
+replacementExercise`Transformer un text
+
+Remplacer tout les mots qui commencent par "un" par "re". Ne faite pas le
+remplacement lorsque le motif apparait au milieu ou en fin de mot.
+``
+undo, unite, and uncover the truth.
+redo, reite, and recover the truth.
+
+John SMITH
+SMITH, John
+
+Alice JOHNSON
+JOHNSON, Alice
+
+Bob BROWN
+BROWN, Bob
+
+Eva DAVIS
+DAVIS, Eva
+``/(\w+) (\w+)/$2, $1/g`,
+replacementExercise`Masquer les années
+
+Remplacer toutes les suites de exactement quatre chiffres par "####"
+``
+In 2020, we started a new project. By 2022, it was completed.
+In ####, we started a new project. By ####, it was completed.
+``/\\b[0-9]{4}\\b/####/g`,
+),
+makeSlide(
+"Exercices de validation ardus",
+basicExercise`Valider un numéro de téléphone français
+
+Matcher tout numéro de téléphone à 9 chiffres, précédés de 0 ou +33. Les espaces sont autorisés.
+``
+01 23 45 67 89
+0123456789
+06 12 34 56 78
+0612345678
+061 23 45 678
++33612345678
++ 33612345678
++33 6 12 34 56 78
++33  1  23  45  67  89
+``
+01 23 45
+01 23 45 67 89 00
+01 2A 45 67 89
+01 23 45 67 89 #
+012-345-6789
+0123456789
+00 23 45 67 89
+06 12 34 56 789
+1 23 45 67 89
+```,
+basicExercise`Valider une adresse email
+
+Matcher tout adresse email qui respecte les règles suivantes:
+
+- L'adresse email doit contenir un seul caractère arobase et au minimum point dans la partie à droite de l'arobase
+- Les noms de domaine et sous-domaine ne peuvent pas être vide
+``
+user@example.com
+john.doe@email.co.uk
+user-name@email.com
+user_name@email.com
+user123@example123.com
+user+tag@example.com
+``
+This is a sample text
+12345@notanemail
+john..doe@email.co.uk
+john.
+doe@email..co.uk
+invalidemail.com
+user@invalid@email.com
+user@
+@example.com
+user@localhost
+user name@example.com
+user@.example.com
+user@example.com.
+```
+),
+)
+  </script>
+
+  <style>
+    ul[no-list-style] {
+      list-style: none;
+    }
+
+    [padding] {
+      padding-top: 50px;
+    }
+
+    [innerHTML] {
+      color: #808080;
+      font-size: 20px;
+    }
+
+    [stroke] {
+      text-decoration: line-through;
+    }
+
+    img[alt="regex-example"] {
+      -webkit-filter: invert(1);
+      filter: invert(1);
+    }
+
+    .red m-,
+    div m-.red {
+      color: red;
+    }
+
+    .green m-,
+    div m-.green {
+      color: green;
+    }
+
+    .blue m-,
+    div m-.blue {
+      color: #0066ff;
+    }
+
+    .decoration-left-rotated {
+      transform: translate(-300px, 0) rotate(35deg);
+    }
+
+    .decoration-right-rotated {
+      transform: translate(300px, 0) rotate(-25deg);
+    }
+  </style>
+
+  <script>
+    if (!location.search.includes("print-pdf")) {
+      document.querySelectorAll("[fragment], [data-fragment-index]").forEach((element) => {
+        element.classList.add("fragment")
+      })
+    }
+    document.querySelectorAll("aside").forEach((element) => {
+      element.classList.add("notes")
+    })
+    document.querySelectorAll("[innerHTML]").forEach((element) => {
+      element.innerHTML = element.getAttribute("innerHTML")
+    })
+
+    let sValue = new URLSearchParams(location.search).get("s")
+    if (sValue === 'shell') {
+      document.querySelectorAll("[automaticGroupSubstitutionSyntax]").forEach((s) => {
+        s.innerHTML = s.innerHTML.replace(/\$(\d)/g, `\\$1`)
+      });
+    }
+    document.querySelectorAll("copy-").forEach((copy) => {
+      copy.innerHTML = document.querySelector(
+        copy.getAttribute("from")
+      ).innerHTML;
+    });
+  </script>
+  <script src="node_modules/reveal.js-menu/menu.js"></script>
+  <script src="revealTOC.ts" type="module"></script>
+  <script src="reveal.ts" type="module"></script>
+</body>
+
+</html>

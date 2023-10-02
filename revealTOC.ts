@@ -1,13 +1,12 @@
-function throwNullishError(name): never {
-  throw new Error(`encountered nullish value for [${name}]`)
-}
-
 function init() {
   const tocPointArray = [
     ...document.getElementsByClassName("table-of-contents"),
   ] as HTMLUListElement[]
-  const baseToc =
-    tocPointArray.find((point) => point.childElementCount > 0) ?? throwNullishError("baseToc")
+  const baseToc = tocPointArray.find((point) => point.childElementCount > 0)
+  if (!baseToc) {
+    console.info("revealTOC could not find the base summary element")
+    return
+  }
 
   const toc = baseToc.cloneNode(true) as HTMLUListElement
 

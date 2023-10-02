@@ -5,6 +5,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 ### Syntaxe - match
 
 - Quel est la syntaxe qui permet de matcher n'importe quelle majuscule ?
+
   - `(AZ)`
   - `[AZ]`
   - `{AZ}`
@@ -24,19 +25,21 @@ _to be fulfiled once at the beginning and once at the end of the training_.
   - Je ne sais pas
 
 - La classe de caractères `[A-z]`:
+
   - Est illégale car la plage `A-z` mélange minuscule et majuscule
   - Match 52 caractères différents, ni plus, ni moins
   - Contient toutes les lettres majuscules de l'alphabet
   - Je ne sais pas
 
 - Le charactère `*`:
+
   - Il remplace n'importe quel suite de caractères
   - Il remplace n'importe quel suite de caractères dont le code ascii est compris entre 32 (" ") et 127 ("~")
   - Il autorise zero répétition-s ou plus du caractère ou groupe qui le précède
   - Il autorise zero répétition-s ou plus du caractère ou groupe qui le succède
   - Je ne sais pas
 
-- Quel regex test si la longeur d'une chaine de caractères est paire ?
+- Quel regex teste si la longeur d'une chaine de caractères est paire ?
   - `.{0,2}`
   - `^.{0,2}$`
   - `(..)*`
@@ -48,6 +51,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 ### Syntaxe - remplacement
 
 - Dans un éditeur de text, laquelle des substitutions ci-dessous permet de remplacer toutes les occurences du motif "wazaa" par "aarg", tel que le nombre de `a` à la fin de waza soit égal au nombre de `a` au début de arg ? Il est garanti que le nombre de `a` sera toujours compris entre 1 et 900.
+
   - `s/"waz(a)*"/"$1rg"/`
   - `s/"waz(a*)"/"$1rg"/`
   - `s/"waz(a)*"/"$1rg"/g`
@@ -72,6 +76,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 (grep, sed)
 
 - Quel option(s) faut-il passer à grep pour qu'il utilise la syntax usuelle des expressions régulière?
+
   - `-R`
   - `-I` or `-o`
   - `-E` or `-P`
@@ -92,6 +97,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
 (r.test, s.match, s.replace, s.split, new Regex())
 
 - Laquelle des méthodes suivante de la classe `String` n'accèpte pas de Regex comme paramètre ?
+
   - `"".match(...)`
   - `"".replace(...)`
   - `"".split(...)`

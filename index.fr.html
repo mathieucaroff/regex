@@ -502,7 +502,7 @@
                 <td data-fragment-index="2" class="fs-2">"Autant de fois que nécessaire"</td>
               </tr>
               <tr>
-                <td data-fragment-index="1"><code>/x+/</code></td>
+                <td data-fragment-index="1"><code>/x+?/</code></td>
                 <td data-fragment-index="2" class="fs-2">"Au moins une fois et autant que nécessaire"</td>
               </tr>
               <tr>
@@ -519,9 +519,9 @@
         <section>
           <h2>Quantificateurs paresseux vs avides</h2>
           <ul>
-            <li fragment>"blablebli", <code>/(bl[aeiou])*/</code> -> "blablebli"</li>
-            <li fragment>"blablebli", <code>/(bl[aeiou])*?/</code> -> "bla"</li>
-            <li fragment>"blablebli!", <code>/(bl[aeiou])*?!/</code> -> "blablebli!"</li>
+            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*/</code> -> "bla ble bli "</li>
+            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*?/</code> -> "bla "</li>
+            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*?etc/</code> -> "bla ble bli etc"</li>
           </ul>
         </section>
       </section>
