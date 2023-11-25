@@ -26,3 +26,10 @@ let deck = new Reveal({
   },
 })
 deck.initialize()
+
+// Keep the slide number of the URL synced with the navigation so that
+// the current slide is maintained when a reload is triggered, be it by the
+// user or by the build system.
+deck.on("slidechanged", (event: any) => {
+  location.hash = event.indexh
+})
