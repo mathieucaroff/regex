@@ -94,7 +94,7 @@
       <section>
         <h1>Introduction</h1>
       </section>
-      <section >
+      <section>
         <h2>Les expressions régulières c'est quoi ?</h2>
         <h2 fragment>À quoi ça sert?</h2>
         <div fragment class="decoration-right-rotated">
@@ -489,6 +489,10 @@
           <h2 qp>Quantificateurs paresseux</h2>
           <em>Répétitions de motifs</em>
           <table>
+            <colgroup>
+              <col span="1" style="width: 24%;">
+              <col span="1" style="width: 76%;">
+            </colgroup>
             <thead>
               <tr>
                 <th>Syntaxe</th>
@@ -510,7 +514,8 @@
               </tr>
               <tr>
                 <td data-fragment-index="1"><code>/x{1,3}?/</code></td>
-                <td data-fragment-index="2" class="fs-2">"Entre une et trois fois et de préférence le moins possible"</td>
+                <td data-fragment-index="2" class="fs-2">"Entre une et trois fois et de préférence le moins possible"
+                </td>
               </tr>
             </tbody>
           </table>
@@ -518,9 +523,13 @@
         <section>
           <h2>Quantificateurs paresseux vs avides</h2>
           <ul>
-            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*/</code> -> "bla ble bli "</li>
-            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*?/</code> -> "bla "</li>
-            <li fragment>"bla ble bli etc", <code>/(bl[aeiou] )*?etc/</code> -> "bla ble bli etc"</li>
+            <li fragment>"bla ble bli etc"
+              <ul>
+                <li fragment><code>/(bl[aeiou] )*/</code><span fragment> → "bla ble bli "</span></li>
+                <li fragment><code>/(bl[aeiou] )*?/</code><span fragment> → "bla "</span></li>
+                <li fragment><code>/(bl[aeiou] )*?etc/</code><span fragment> → "bla ble bli etc"</span></li>
+              </ul>
+            </li>
           </ul>
         </section>
       </section>
@@ -564,7 +573,9 @@
           <h2>Ancres</h2>
           <table data-fragment-index="1">
             <tbody>
-              <tr><td colspan="2" align="center"><em>Dans l'IDE</em></td></tr>
+              <tr>
+                <td colspan="2" align="center"><em>Dans l'IDE</em></td>
+              </tr>
               <tr>
                 <td>
                   <ol>
@@ -586,7 +597,9 @@
           <h2>Ancres</h2>
           <table style="font-size: smaller;">
             <tbody>
-              <tr><td colspan="2" align="center"><em>En programmation</em></td></tr>
+              <tr>
+                <td colspan="2" align="center"><em>En programmation</em></td>
+              </tr>
               <tr>
                 <td>
                   <ol>
@@ -610,7 +623,9 @@
           <ul>
             <li fragment><code>/const|let|var|function/</code></li>
             <li fragment><code>/^(const|let|var|function)/</code>
-              <ul><li fragment><code>/^const|^let|^var|^function/</code></li></ul>
+              <ul>
+                <li fragment><code>/^const|^let|^var|^function/</code></li>
+              </ul>
             </li>
             <li fragment><code>/^(~regex de validation~)$/</code></li>
           </ul>
@@ -627,7 +642,10 @@
                   <li>Classes de caractères Perl</li>
                   <li>Délimitations de mots</li>
                   <li>Caractères particuliers</li>
-                  <li>Metacaractères<ul><li>Cas des classes de caractères</li></ul></li>
+                  <li>Metacaractères<ul>
+                      <li>Cas des classes de caractères</li>
+                    </ul>
+                  </li>
                 </ol>
               </td>
               <td>
@@ -656,7 +674,7 @@
             </ul>
           </li>
         </ul>
-        <img fragment src="img/word-boundary.png" alt="word boudary example 'Hello, JS!'"/>
+        <img fragment src="img/word-boundary.png" alt="word boudary example 'Hello, JS!'" />
       </section>
       <section>
         <h2>Échapements</h2>
@@ -732,15 +750,14 @@
         </aside>
       </section>
 
-      <section
-        data-background-iframe="re2.syntax.short.cheatsheet.styled.html"
-      ></section>
+      <section data-background-iframe="re2.syntax.short.cheatsheet.styled.html"></section>
 
       <section>
         <h2 replacements>Remplacements et cas habituels</h2>
         <h4>Notations</h4>
         <ul>
-          <li fragment><code>x</code>, <code>y</code>, <code>z</code><span fragment> → regex ou morceau de regex</span></li>
+          <li fragment><code>x</code>, <code>y</code>, <code>z</code><span fragment> → regex ou morceau de regex</span>
+          </li>
           <li fragment><code>a</code>, <code>b</code>, ...<span fragment> → caractère</span></li>
           <li fragment>Remplacements <em>(notations de Perl):</em>
             <ul>
@@ -751,9 +768,12 @@
         </ul>
         <aside>
           Pour la suite de cette présentation, nous utiliserons les notations indiquées dans cette slide:
-          Les lettres x, y et z désigne des expressions régulières à-part-entières qui peuvent être inclueses au sein d'un plus grande expression régulière.
+          Les lettres x, y et z désigne des expressions régulières à-part-entières qui peuvent être inclueses au sein
+          d'un plus grande expression régulière.
           Les lettres a, b, c etc. désigne un caractère seul.
-          Pour les remplacements, nous utiliserons la notation que voici. Il s'agit de la notation avec des slashes de Perl. Cette notation est utilisée notemment en Perl et en Sed. Par exemple, le remplacement suivant remplace toutes les suites de lettre "abc" en "def".
+          Pour les remplacements, nous utiliserons la notation que voici. Il s'agit de la notation avec des slashes de
+          Perl. Cette notation est utilisée notemment en Perl et en Sed. Par exemple, le remplacement suivant remplace
+          toutes les suites de lettre "abc" en "def".
         </aside>
       </section>
 
@@ -765,10 +785,15 @@
           <pre fragment><code class="text">s/^deb (.*)$/deb $1\ndeb-src $1/g</code></pre>
         </div>
         <aside>
-          Nous avons vu précédement qu'un groupe est un morceau d'expression régulière placé entre parenthèses. Nous avons aussi vu que les groupes permettent de restreindre la portée des alternatives, et d'étendre celle des quantificateurs. (Eh bien) les groupes ont aussi un rôle dans les remplacements par expression régulières :
-          Un système de numérotation des groupes permet de réutiliser la valeur prise par un groupe dans le texte de remplacement. Voici un remplacement dans lequel le contenu d'origine est partiellement dupliqué grâce à une référence au groupe numéro 1.
+          Nous avons vu précédement qu'un groupe est un morceau d'expression régulière placé entre parenthèses. Nous
+          avons aussi vu que les groupes permettent de restreindre la portée des alternatives, et d'étendre celle des
+          quantificateurs. (Eh bien) les groupes ont aussi un rôle dans les remplacements par expression régulières :
+          Un système de numérotation des groupes permet de réutiliser la valeur prise par un groupe dans le texte de
+          remplacement. Voici un remplacement dans lequel le contenu d'origine est partiellement dupliqué grâce à une
+          référence au groupe numéro 1.
 
-          Cette regex est provient du Bastion et est appliquée au fichier /etc/apt/sources.list. Elle sert à ajouter une entrée debian-source pour chaque entrée de package debian déjà présente dans le fichier.
+          Cette regex est provient du Bastion et est appliquée au fichier /etc/apt/sources.list. Elle sert à ajouter une
+          entrée debian-source pour chaque entrée de package debian déjà présente dans le fichier.
         </aside>
       </section>
 
@@ -791,7 +816,9 @@
             </code>
           </pre>
           <aside>
-            Pour pouvoir désigner n'importe quel groupe d'une expression régulière, un système de numérotation a été mis en place. Le numéro 0 désigne la totatlité du text matché par l'expression régulière. Les numéros suivants désigne les groupes, par ordre d'apparition de leur paranthèse ouvrante.
+            Pour pouvoir désigner n'importe quel groupe d'une expression régulière, un système de numérotation a été mis
+            en place. Le numéro 0 désigne la totatlité du text matché par l'expression régulière. Les numéros suivants
+            désigne les groupes, par ordre d'apparition de leur paranthèse ouvrante.
           </aside>
         </section>
         <section>
@@ -822,9 +849,13 @@
             </pre>
           </div>
           <aside>
-            Il existe une syntax appelée groupe non-capturant. Cette syntax est assez peu utile. Elle permet d'avoir des groupes utilisable pour les alternatives et les quantificateurs, mais qui ne contribuent pas à la numérotation et qui ne sont donc pas accessibles dans le remplacement. Par exemple, dans la regex suivante, il n'y qu'un seul groupe, celui qui match juste "y".
+            Il existe une syntax appelée groupe non-capturant. Cette syntax est assez peu utile. Elle permet d'avoir des
+            groupes utilisable pour les alternatives et les quantificateurs, mais qui ne contribuent pas à la
+            numérotation et qui ne sont donc pas accessibles dans le remplacement. Par exemple, dans la regex suivante,
+            il n'y qu'un seul groupe, celui qui match juste "y".
 
-            Dans l'expression régulière que voici, quels sont les groupes numérotés ? combien y en a t'il ? et quels sont leur numéros respectifs ?
+            Dans l'expression régulière que voici, quels sont les groupes numérotés ? combien y en a t'il ? et quels
+            sont leur numéros respectifs ?
           </aside>
         </section>
       </section>
@@ -833,17 +864,41 @@
           <h2>Remplacements et cas habituels</h2>
           <h4>Substitution de groupe: groupes inutilisés</h4>
           <p><code fragment>s/((a)|b)c/0:$0. 1:$1. 2:$2. 3:$3./g</code></p>
-          <p><code fragment>"HI ac AND bc BYE"</code></p>
-          <p style='font-size: 90%;'><code fragment>"HI 0:ac. 1:a. 2:a. 3:. AND 0:bc. 1:b. 2:. 3:. BYE"</code></p>
+          <ul>
+            <li fragment>
+              <code>"HI ac BYE"</code>
+              <ul fragment>
+                <li><code>"HI 0:ac. 1:a. 2:a. 3:. BYE"</code></li>
+              </ul>
+            </li>
+            <li fragment>
+              <code>"HI bc BYE"</code>
+              <ul fragment>
+                <li><code>"HI 0:bc. 1:b. 2:. 3:. BYE"</code></li>
+              </ul>
+            </li>
+          </ul>
+          <p></p>
+          <p style='font-size: 90%;'></p>
         </section>
         <section>
           <h2>Remplacements et cas habituels</h2>
           <h4>Substitution de groupe: groupes réutilisés</h4>
           <p><code fragment>s/[0-9](-([0-9]))*/0:$0. 1:$1. 2:$2./g</code></p>
-          <p><code fragment>"SUM: 5 END"</code></p>
-          <p><code fragment>"SUM: 0:5. 1:. 2:. END"</code></p>
-          <p><code fragment>"SUM: 9-8-7-6 END"</code></p>
-          <p><code fragment>"SUM: 0:9-8-7-6. 1:-6. 2:6. END"</code></p>
+          <ul>
+            <li fragment>
+              "SUM: 5 END"
+              <ul>
+                <li fragment><code>"SUM: 0:5. 1:. 2:. END"</code></li>
+              </ul>
+            </li>
+            <li fragment>
+              "SUM: 9-8-7-6 END"
+              <ul>
+                <li fragment><code>"SUM: 0:9-8-7-6. 1:-6. 2:6. END"</code></li>
+              </ul>
+            </li>
+          </ul>
         </section>
       </section>
       <section>
@@ -973,7 +1028,9 @@
         <h4>L'outil grep</h4>
         <ul>
           <li fragment>search for a file by regex
-            <ul><li fragment><code>grep -lR . | grep -E '&lt;filepath-regex>'</code></li></ul>
+            <ul>
+              <li fragment><code>grep -lR . | grep -E '&lt;filepath-regex>'</code></li>
+            </ul>
           </li>
         </ul>
       </section>
@@ -1042,12 +1099,19 @@
       <section>
         <ul>
           <li><a href="https://regex101.com">Regex 101</a></li>
-          <li><a href="https://www.regular-expressions.info">regular-expression.info</a></li>
           <li><a href="https://regexr.com/">RegexR (open-source!)</a></li>
-          <li><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_regular_expressions">Guide des Regex Powershell</li>
-          <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a></li>
-          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de MDN</a></li>
-          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet Regex de MDN</a></li>
+          <li><a href="https://regexone.com/">RegexOne</a></li>
+          <li><a href="https://www.regular-expressions.info">regular-expression.info</a></li>
+          <li><a
+              href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_regular_expressions">Guide
+              des Regex Powershell</li>
+          <li><a href="https://docs.python.org/3/library/re.html">Documentation Python du module <code>re</code></a>
+          </li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions">Guide Regex de
+              MDN</a></li>
+          <li><a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions/Cheatsheet">Cheatsheet
+              Regex de MDN</a></li>
         </ul>
       </section>
     </div>
