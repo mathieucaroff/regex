@@ -123,7 +123,7 @@ _to be fulfiled once at the beginning and once at the end of the training_.
   - `re.split()`
   - `re.sub()`
 
-Lequel des appels de fonction suivant retire toutes les occurrences du mot "master" entièrement en minuscules, dans les commentaires d'un code Python qui ne contient lui-même aucune chaine de caractère litérale? Le-dit code Python est présent dans la variable `s`.
+Lequel des appels de fonction suivant retire toutes les occurrences du mot "master" entièrement en minuscules, dans les commentaires d'un code Python qui ne contient lui-même aucune chaine de caractère littérale? Le-dit code Python est présent dans la variable `s`.
 
 - `re.sub(r"#(.*)\bmaster\b", "#$1", s)`
 - `re.sub(r"#(.*)", "", s)`

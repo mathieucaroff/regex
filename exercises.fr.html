@@ -52,16 +52,16 @@
       let template = param.shift()
       return template.map((v, k) => v + (param[k] ?? "")).join('')
     }
-    function insertSlide(...slideArray) {
+    function insert(...slideArray) {
       let slideDiv = document.querySelector(".slides")
       slideArray.forEach(slide => {
         slideDiv.appendChild(slide)
       })
     }
-    function makeSlide(title, ...linkArray) {
+    function makeSlide(title, ...itemArray) {
       return crel("section", {}, [
         crel("h3", { textContent: title }),
-        crel("ol", {}, linkArray.map(a => crel("li", {}, [a])))
+        crel("ol", {}, itemArray.map(a => crel("li", {}, [a])))
       ])
     }
     /**
@@ -77,16 +77,19 @@
      *   {non-matching}
      *   `
      */
-    let basicExercise = (...a) => (...b) => (...c) => (...d) => {
-      let [exerciseTitle, regex, ...statementArray] = content(a).split("\n")
+
+    // BASIC
+    let basicExercise = (...introArgs) => (...matchingArgs) => (...nonMatchingArgs) => (...solutionArgs) => {
+      let [exerciseTitle, regex, ...statementArray] = content(introArgs).split("\n")
+      let matching = content(matchingArgs)
+      let nonMatching = content(nonMatchingArgs).trimEnd()
+      let solution = content(solutionArgs).trim().split("\n")[0]
+
       let rawStatement = statementArray.join("\n")
       let statement = rawStatement.trim().replace(/\n/g, '\n# ')
-      let solution = content(d).trim().split("\n")[0]
       if (location.search.includes("solution")) {
         regex = solution
       }
-      let matching = content(b)
-      let nonMatching = content(c).trimEnd()
       let text = `# ${exerciseTitle}
 #
 # ${statement}
@@ -94,12 +97,31 @@ ${matching}${nonMatching}`
       let href = url`https://regex101.com/?regex=${regex}&testString=${text}&flags=gm`
       return crel("a", { textContent: exerciseTitle, href })
     }
-insertSlide(
+
+    // REPLACEMENT
+    let replacementExercise = (...introArgs) => (...bodyArgs) => (...solutionArgs) => {
+      let [exerciseTitle, regex, ...statementArray] = content(introArgs).split("\n")
+      let inputAndExpectedResult = content(bodyArgs).trimEnd()
+      let solution = content(solutionArgs).trim().split("\n")[0]
+
+      let rawStatement = statementArray.join("\n")
+      let statement = rawStatement.trim().replace(/\n/g, '\n# ')
+      if (location.search.includes("solution")) {
+        regex = solution
+      }
+      let text = `# ${exerciseTitle}
+#
+# ${statement}
+${inputAndExpectedResult}`
+      let href = url`https://regex101.com/?regex=${regex}&testString=${text}&flags=gm`
+      return crel("a", { textContent: exerciseTitle, href })
+    }
+insert(
 makeSlide(
 "Exemples d'exercices",
-basicExercise`Lettres litérales
+basicExercise`Lettre littérale "e"
 
-Matcher toute ligne qui contient la lettre "e"
+Matcher en entier toute ligne qui contient la lettre "e"
 ``
 valeur
 penser
@@ -113,7 +135,7 @@ maison
 savoir
 suffir
 ``^.*e.*$`,
-basicExercise`Lettres litérales
+basicExercise`Chiffres littéraux
 
 Matcher toute ligne composée uniquement de chiffres
 ``
@@ -190,7 +212,7 @@ abcd
 `,
 ),
 makeSlide(
-"Exercices de remplacement",
+`Exercices de remplacement, "substitution"`,
 replacementExercise`Transformer un text
 
 Remplacer tout les mots qui commencent par "un" par "re". Ne faite pas le
@@ -206,20 +228,16 @@ replacementExercise`Masquer les années
 
 Remplacer toutes les suites de exactement quatre chiffres par "####"
 ``
-In 2020, we started a new project. By 2022, it was completed.
-In ####, we started a new project. By ####, it was completed.
+In 2020, we started a new project, I was 23. After 2 years, by 2022, it was completed.
+In ####, we started a new project, I was 23. After 2 years, by ####, it was completed.
 ``/\\b[0-9]{4}\\b/####/g`,
 ),
 makeSlide(
 "Exercices de remplacement utilisant les groupes",
-replacementExercise`Transformer un text
+replacementExercise`Intervertir des noms
 
-Remplacer tout les mots qui commencent par "un" par "re". Ne faite pas le
-remplacement lorsque le motif apparait au milieu ou en fin de mot.
+Intervertissez le premier mot avec le seconds. S'il y a plus de deux mots, intervertissez les deux premiers et laissez les suivants tel quel.
 ``
-undo, unite, and uncover the truth.
-redo, reite, and recover the truth.
-
 John SMITH
 SMITH, John
 
@@ -232,13 +250,13 @@ BROWN, Bob
 Eva DAVIS
 DAVIS, Eva
 ``/(\w+) (\w+)/$2, $1/g`,
-replacementExercise`Masquer les années
+replacementExercise`Usage correct du pronom démonstratif "ça"
 
-Remplacer toutes les suites de exactement quatre chiffres par "####"
+Remplacer toutes les occurences de "sa" par "ça", lorsqu'il est suivi de "me", "te", "le", "m'", "t'" ou "l'"
 ``
-In 2020, we started a new project. By 2022, it was completed.
-In ####, we started a new project. By ####, it was completed.
-``/\\b[0-9]{4}\\b/####/g`,
+Savoir cela, sa m'a empêché de dormir. Sa malette nous aurait été bien utile.
+Savoir cela, ça m'a empêché de dormir. Sa malette nous aurait été bien utile.
+``/sa (me|te|le|m'|t'|l')/ça \\1/g`,
 ),
 makeSlide(
 "Exercices de validation ardus",
@@ -270,7 +288,7 @@ basicExercise`Valider une adresse email
 
 Matcher tout adresse email qui respecte les règles suivantes:
 
-- L'adresse email doit contenir un seul caractère arobase et au minimum point dans la partie à droite de l'arobase
+- L'adresse email doit contenir un seul caractère arobase et au minimum un point dans la partie à droite de l'arobase
 - Les noms de domaine et sous-domaine ne peuvent pas être vide
 ``
 user@example.com
