@@ -4,7 +4,11 @@
   "main": "index.html",
   "repository": "git@github.com:mathieucaroff/regex.git",
   "author": "Mathieu CAROFF <mathieu.caroff@free.fr>",
-  "license": "JAM",
+  "license": "Jam",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
   "dependencies": {
     "@types/reveal.js": "^4.4.2",
     "bootstrap": "^5.3.0",
